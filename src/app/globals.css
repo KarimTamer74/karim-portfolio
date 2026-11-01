@@ -1,0 +1,438 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-bg: #fafaf8;
+  --color-surface: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-text-primary: #16181c;
+  --color-text-secondary: #454e5a;
+  --color-text-muted: #737d89;
+  --color-border-subtle: rgba(20, 24, 30, 0.08);
+  --color-border-default: rgba(20, 24, 30, 0.16);
+  --color-accent: #188a54;
+  --color-status-live: #188a54;
+  --color-status-building: #9a6b12;
+  --color-status-delivered: #5b6472;
+  --color-status-curriculum: #5d4fb8;
+  --color-danger: #c42b22;
+}
+
+.dark {
+  --color-bg: #0c0e11;
+  --color-surface: #13161b;
+  --color-surface-raised: #191d24;
+  --color-text-primary: #eef0f3;
+  --color-text-secondary: #a7afba;
+  --color-text-muted: #8a94a3;
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-default: rgba(255, 255, 255, 0.11);
+  --color-accent: #41c98a;
+  --color-status-live: #41c98a;
+  --color-status-building: #d9a544;
+  --color-status-delivered: #8b95a4;
+  --color-status-curriculum: #9a8fe8;
+  --color-danger: #e5534b;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+  --color-primary: var(--color-text-primary);
+  --color-secondary: var(--color-text-secondary);
+  --color-muted: var(--color-text-muted);
+  --color-border-subtle: var(--color-border-subtle);
+  --color-border-default: var(--color-border-default);
+  --color-accent: var(--color-accent);
+  --color-live: var(--color-status-live);
+  --color-building: var(--color-status-building);
+  --color-delivered: var(--color-status-delivered);
+  --color-curriculum: var(--color-status-curriculum);
+  --color-danger: var(--color-danger);
+
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-mono:
+    var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo, Consolas,
+    monospace;
+
+  --text-display: clamp(2.75rem, 6vw, 4.5rem);
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 560;
+  --text-h1: clamp(2.125rem, 3.5vw, 2.75rem);
+  --text-h1--line-height: 1.14;
+  --text-h1--letter-spacing: -0.015em;
+  --text-h1--font-weight: 550;
+  --text-h2: clamp(1.625rem, 2.5vw, 1.875rem);
+  --text-h2--line-height: 1.3;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h2--font-weight: 550;
+  --text-h3: 1.3125rem;
+  --text-h3--line-height: 1.45;
+  --text-h3--font-weight: 500;
+
+  /* 1b monument figures: Archivo numerals used as proof metrics.
+     Keep line-height at 1 and a tight track so the faces sit like
+     data readouts, not prose. */
+  --text-metric-2xl: clamp(4rem, 9vw, 7rem);
+  --text-metric-2xl--line-height: 1;
+  --text-metric-2xl--letter-spacing: -0.02em;
+  --text-metric-2xl--font-weight: 600;
+
+  --text-metric-xl: clamp(3.5rem, 7vw, 5.5rem);
+  --text-metric-xl--line-height: 1;
+  --text-metric-xl--letter-spacing: -0.02em;
+  --text-metric-xl--font-weight: 600;
+
+  --text-metric-md: clamp(1.75rem, 3vw, 2.5rem);
+  --text-metric-md--line-height: 1;
+  --text-metric-md--letter-spacing: -0.015em;
+  --text-metric-md--font-weight: 600;
+
+  --text-body-lg: clamp(1.0625rem, 1.25vw, 1.1875rem);
+  --text-body-lg--line-height: 1.7;
+  --text-body-lg--letter-spacing: -0.0025em;
+  --text-body-lg--font-weight: 400;
+
+  /* Small mono labels need one size up + a solid (medium) weight so the
+     letterforms don't read as thin/broken at tiny pixels. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.1875rem;
+  --text-xs--font-weight: 500;
+
+  --radius-media: 24px;
+
+  /* one shared editorial easing curve. */
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-micro: 140ms;
+  --dur-fast: 180ms;
+  --dur-medium: 240ms;
+  --dur-content: 320ms;
+  --dur-enter: 300ms;
+}
+
+/* Hero boot sequence: pure CSS, disabled under reduced motion via
+   the global duration clamp. */
+.boot {
+  animation: boot-in 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes boot-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: page-in var(--dur-enter) cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Form state messages: quiet fade + rise into the live region. */
+@keyframes state-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.state-in {
+  animation: state-in 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Tactile press feedback shared by solid buttons. */
+.pressable {
+  transition:
+    transform var(--dur-micro) cubic-bezier(0.22, 1, 0.36, 1),
+    opacity var(--dur-micro) ease,
+    background-color var(--dur-micro) ease,
+    border-color var(--dur-micro) ease;
+}
+
+.pressable:active {
+  transform: translateY(1px);
+}
+
+/* One button system for every action in the site: solid (primary),
+   outline (secondary), and the shared press feedback. */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    border-radius: 0.5rem;
+    padding-inline: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+    transition:
+      background-color var(--dur-micro) ease,
+      border-color var(--dur-micro) ease,
+      color var(--dur-micro) ease,
+      transform var(--dur-micro) cubic-bezier(0.22, 1, 0.36, 1),
+      opacity var(--dur-fast) ease;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-solid {
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+  }
+
+  .btn-solid:hover {
+    opacity: 0.85;
+  }
+
+  .btn-outline {
+    border: 1px solid var(--color-border-default);
+    color: var(--color-text-primary);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--color-text-primary);
+  }
+}
+
+/* Text links that still need to read as links when they carry an action. */
+@layer components {
+  .link {
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-border-default);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+    transition:
+      color var(--dur-micro) ease,
+      text-decoration-color var(--dur-micro) ease;
+  }
+
+  .link:hover {
+    text-decoration-color: var(--color-accent);
+  }
+}
+
+/* Typography system — one semantic class per voice. Full rationale in
+   TYPOGRAPHY.md. These replace ad-hoc mono combos; tracking is kept
+   modest (0.025em) so JetBrains Mono letterforms raster cleanly at
+   100% zoom instead of shimmering at subpixel positions. */
+@layer components {
+  /* 3a signpost — section index / act / channel captions (accent). */
+  .label-accent {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.1875rem;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  /* 3b supportive caption (muted). */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.1875rem;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  /* 3b emphasized caption (primary). */
+  .label-primary {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.1875rem;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+  }
+
+  /* 3c status — color is supplied by the status utilities
+     (text-live / text-building / text-delivered / text-curriculum). */
+  .status {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+  }
+
+  /* 3d brand wordmark — the owner's name. */
+  .wordmark {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.05em;
+    color: var(--color-text-primary);
+  }
+
+  /* 3b/4 auxiliary mono note (sources, captions, stack lines). */
+  .mono-note {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.625;
+    letter-spacing: 0.025em;
+    color: var(--color-text-muted);
+  }
+
+  /* 4 mono data record (value rows, skill inventory items). */
+  .mono-data {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.625;
+    letter-spacing: 0.025em;
+    color: var(--color-text-secondary);
+  }
+
+  /* h3 titles used lower in the tree keep the h3 size but sit at normal
+     weight — job titles inside the operation log. */
+  .headline-h3-normal {
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    font-weight: 400;
+  }
+}
+
+@keyframes boot-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes menu-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes backdrop-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.menu-overlay {
+  animation: menu-in 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.menu-overlay[data-closing="true"] {
+  animation: menu-out 150ms ease both;
+}
+
+.menu-backdrop {
+  animation: backdrop-in 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.menu-backdrop[data-closing="true"] {
+  animation: backdrop-out 150ms ease both;
+}
+
+.menu-item {
+  animation: menu-in 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-secondary);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

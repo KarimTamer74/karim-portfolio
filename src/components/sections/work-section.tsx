@@ -1,0 +1,184 @@
+import Link from "next/link";
+import { featuredProjects, getProjectHero, moreProjects, projectCounts } from "@/data/registry";
+import type { Project } from "@/types";
+import { StatusStamp } from "@/components/shared/status-stamp";
+import { FactRow } from "@/components/shared/fact-row";
+import { MediaFigure } from "@/components/shared/media-figure";
+import { SectionHeader } from "@/components/shared/section-header";
+
+
+export function WorkSection({ className }: { className?: string }): React.ReactElement {
+  const featured = featuredProjects.filter((p) => p.status !== "CURRICULUM");
+  const secondary = moreProjects.filter((p) => p.category === "PERSONAL");
+
+  return (
+    <section id="work" aria-label="Work" className={`scroll-mt-24 ${className ?? ""}`}>
+      <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
+        <SectionHeader
+          index="01"
+          title="Work"
+          lede="Featured systems I've built, shipped, or currently operate."
+          meta={`${featured.length} FEATURED · ${projectCounts.total} SYSTEMS IN THE FULL ARCHIVE`}
+        />
+
+        <div className="mt-16 space-y-20 lg:space-y-28">
+          {featured.map((project, i) => (
+            <ProjectPreview key={project.slug} project={project} flip={i % 2 === 1} />
+          ))}
+        </div>
+
+        {/* More Projects: compact index; the archive holds the full registry */}
+        <div className="mt-24 lg:mt-32">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
+            <h3 className="label">
+              MORE PROJECTS
+            </h3>
+            <Link
+              href="/projects"
+              className="btn btn-outline group/archive"
+            >
+              VIEW ALL PROJECTS
+              <span
+                aria-hidden
+                className="transition-transform duration-150 ease-out group-hover/archive:translate-x-0.5"
+              >
+                →
+              </span>
+            </Link>
+          </div>
+
+          <ul className="mt-6 divide-y divide-border-subtle border-t border-border-subtle">
+            {secondary.map((project) => (
+              <MoreRow
+                key={project.slug}
+                href={`/work/${project.slug}`}
+                title={project.title}
+                line={project.mission ? project.mission : project.origin}
+                meta={project.origin}
+              />
+            ))}
+            <MoreRow
+              href="/projects#curriculum"
+              title="NTI Projects"
+              line="The full NTI Flutter track archive."
+              meta="CURRICULUM"
+            />
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MoreRow({
+  href,
+  title,
+  line,
+  meta,
+}: {
+  href: string;
+  title: string;
+  line: string;
+  meta: string;
+}): React.ReactElement {
+  return (
+    <li>
+      <Link
+        href={href}
+        className="group/row flex min-h-14 flex-wrap items-baseline gap-x-6 gap-y-1 border-b border-border-subtle py-4 transition-colors duration-150 hover:bg-surface"
+      >
+        <span className="font-medium text-primary transition-colors duration-150 group-hover/row:text-accent">
+          {title}
+        </span>
+        <span className="min-w-0 flex-1 truncate text-sm text-secondary">{line}</span>
+        <span className="label hidden sm:block">
+          {meta}
+        </span>
+        <span aria-hidden className="text-muted transition-colors group-hover/row:text-accent">
+          →
+        </span>
+      </Link>
+    </li>
+  );
+}
+
+function ProjectPreview({
+  project,
+  flip = false,
+}: {
+  project: Project;
+  flip?: boolean;
+}): React.ReactElement {
+  const hero = getProjectHero(project);
+
+  return (
+    <article
+      aria-labelledby={`work-${project.slug}`}
+      className="group/entry grid grid-cols-1 items-start gap-8 border-t border-border-subtle pt-10 transition-colors duration-150 hover:border-border-default lg:grid-cols-12 lg:gap-x-20 lg:gap-y-8"
+    >
+      <PreviewText project={project} flip={flip} />
+      <div className={flip ? "lg:order-1 lg:col-span-7" : "lg:col-span-7"}>
+        <MediaFigure
+          media={{ ...hero, priority: true }}
+          ratio="aspect-[3/2]"
+          sizes="(min-width: 1024px) 42rem, 90vw"
+        />
+      </div>
+    </article>
+  );
+}
+
+function PreviewText({ project, flip }: { project: Project; flip: boolean }): React.ReactElement {
+  return (
+    <div className={flip ? "lg:order-2 lg:col-span-5" : "lg:col-span-5"}>
+      <div className="flex flex-wrap items-center gap-4">
+        <StatusStamp status={project.status} />
+        <p className="label">
+          {project.origin}
+        </p>
+      </div>
+
+      <h3
+        id={`work-${project.slug}`}
+        className="mt-3 text-h3 text-primary transition-colors duration-150 group-hover/entry:text-accent"
+      >
+        {project.title}
+      </h3>
+
+      <p className="mt-3 max-w-[46ch] text-secondary">{project.mission}</p>
+
+      <p className="mt-4 mono-note">
+        {project.stack.join(" · ")}
+      </p>
+
+      <FactRow facts={project.facts.slice(0, 3)} className="mt-5" />
+
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <Link
+          href={`/work/${project.slug}`}
+          className="btn btn-solid group/link"
+        >
+          READ CASE STUDY
+          <span
+            aria-hidden
+            className="transition-transform duration-150 ease-out group-hover/link:translate-x-0.5"
+          >
+            →
+          </span>
+        </Link>
+
+        {project.links.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}

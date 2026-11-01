@@ -1,0 +1,142 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# env files
+.env*
+!.env.example
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# misc
+.DS_Store
+*.pem
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# raw / source assets (not used by the app)
+/Data/**/Shots/
+/Data/**/shots/
+/Data/**/Collection/
+/Data/**/collection/
+
+# raw source assets with no copy in public/images (unused by the app)
+Data/Karim Tamer's Resume-Flutter Developer.pdf
+Data/Projects/Apps Github Links.pdf
+Data/Projects/NTIProjects/NTI Projects Links.pdf
+Data/Projects/1-MarsaApp/all_appointments_dark.webp
+Data/Projects/1-MarsaApp/all_units1_light.webp
+Data/Projects/1-MarsaApp/all_units2_light.webp
+Data/Projects/1-MarsaApp/appointments_loading.webp
+Data/Projects/1-MarsaApp/appointment_done2_dark.webp
+Data/Projects/1-MarsaApp/appointment_done_dark.webp
+Data/Projects/1-MarsaApp/appointment_done_light.webp
+Data/Projects/1-MarsaApp/change_profile_light.webp
+Data/Projects/1-MarsaApp/date_step2_dark.webp
+Data/Projects/1-MarsaApp/date_step_dark.webp
+Data/Projects/1-MarsaApp/date_step_light.webp
+Data/Projects/1-MarsaApp/details2_dark.webp
+Data/Projects/1-MarsaApp/details2_light.webp
+Data/Projects/1-MarsaApp/details3_dark.webp
+Data/Projects/1-MarsaApp/details3_light.webp
+Data/Projects/1-MarsaApp/details4_dark.webp
+Data/Projects/1-MarsaApp/details4_light.webp
+Data/Projects/1-MarsaApp/details_loading_dark.webp
+Data/Projects/1-MarsaApp/edit_profile_light.webp
+Data/Projects/1-MarsaApp/fav_empty.webp
+Data/Projects/1-MarsaApp/fav_loading.webp
+Data/Projects/1-MarsaApp/filter2_dark.webp
+Data/Projects/1-MarsaApp/filter2_light.webp
+Data/Projects/1-MarsaApp/filter3_light.webp
+Data/Projects/1-MarsaApp/filter_dark.webp
+Data/Projects/1-MarsaApp/home3_light.webp
+Data/Projects/1-MarsaApp/home4_light.webp
+Data/Projects/1-MarsaApp/home_loading_dark.webp
+Data/Projects/1-MarsaApp/home_loading_light.webp
+Data/Projects/1-MarsaApp/my_appointments_canceld_dark.webp
+Data/Projects/1-MarsaApp/my_appointments_canceld_light.webp
+Data/Projects/1-MarsaApp/my_appointments_completed_dark.webp
+Data/Projects/1-MarsaApp/my_appointments_completed_light.webp
+Data/Projects/1-MarsaApp/payment_step1_dark.webp
+Data/Projects/1-MarsaApp/payment_step2_dark.webp
+Data/Projects/1-MarsaApp/payment_step_light.webp
+Data/Projects/1-MarsaApp/qa_light.webp
+Data/Projects/1-MarsaApp/Screenshot_1786907500.webp
+Data/Projects/1-MarsaApp/Screenshot_1786908665.webp
+Data/Projects/1-MarsaApp/Screenshot_1786908844.webp
+Data/Projects/1-MarsaApp/Screenshot_1787314704.webp
+Data/Projects/1-MarsaApp/Screenshot_1787412391.webp
+Data/Projects/1-MarsaApp/summary_step_dark.webp
+Data/Projects/1-MarsaApp/terms_light.webp
+Data/Projects/2-QuranCutsApp/ayah_dark.webp
+Data/Projects/2-QuranCutsApp/done_dark.webp
+Data/Projects/2-QuranCutsApp/generation2_light.webp
+Data/Projects/2-QuranCutsApp/generation_dark.webp
+Data/Projects/2-QuranCutsApp/home_dark.webp
+Data/Projects/2-QuranCutsApp/preview_dark.webp
+Data/Projects/2-QuranCutsApp/reciter_dark.webp
+Data/Projects/2-QuranCutsApp/Splash.webp
+Data/Projects/2-QuranCutsApp/surah_dark.webp
+Data/Projects/2-QuranCutsApp/template1_dark.webp
+Data/Projects/2-QuranCutsApp/template2_dark.webp
+Data/Projects/2-QuranCutsApp/template2_light.webp
+Data/Projects/4-BidMartApp/loading.webp
+Data/Projects/4-BidMartApp/profile.webp
+Data/Projects/4-BidMartApp/settings.webp
+Data/Projects/4-BidMartApp/splash.webp
+Data/Projects/5-MothooqApp/999shots_so.webp
+Data/Projects/NTIProjects/BMI App/733shots_so.webp
+Data/Projects/NTIProjects/E Commerce App/347shots_so.webp
+Data/Projects/NTIProjects/E Commerce App/454shots_so.webp
+Data/Projects/NTIProjects/E Commerce App/54shots_so.webp
+Data/Projects/NTIProjects/Local DB/727shots_so.webp
+Data/Projects/NTIProjects/Local DB/Screenshot_1774570731.webp
+Data/Projects/NTIProjects/Local DB/Screenshot_1774570735.webp
+Data/Projects/NTIProjects/Local DB/Screenshot_1774570759.webp
+Data/Projects/NTIProjects/Social Media App/Screenshot_1779534765.webp
+Data/Projects/NTIProjects/Social Media App/Screenshot_1779534771.webp
+Data/Projects/NTIProjects/Yummy App/Screenshot_1774570587.webp
+Data/Projects/NTIProjects/Yummy App/Screenshot_1774570591.webp
+Data/Projects/NTIProjects/Yummy App/Screenshot_1774570594.webp
+Data/Projects/NTIProjects/Yummy App/Screenshot_1774570604.webp
+
+# documentation files
+/PROJECT_INVENTORY.md
+/MIGRATION_REPORT.md

@@ -1,0 +1,145 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import {
+  featuredProjects,
+  moreProjects,
+  ntiProjects,
+  projectCounts,
+} from "@/data/registry";
+import { siteConfig } from "@/lib/site-config";
+
+export const metadata: Metadata = {
+  title: "Project Archive",
+  description: `The complete project registry: ${projectCounts.total} systems - ${projectCounts.personal} personal builds and ${projectCounts.nti} NTI training projects.`,
+  alternates: { canonical: "/projects" },
+  openGraph: {
+    title: "Project Archive | Karim Tamer",
+    description: `Complete project registry: ${projectCounts.total} systems.`,
+    url: `${siteConfig.url}/projects`,
+  },
+  twitter: {
+    title: "Project Archive | Karim Tamer",
+    description: `Complete project registry: ${projectCounts.total} systems.`,
+  },
+};
+
+function ArchiveRow({
+  slug,
+  title,
+  line,
+  meta,
+}: {
+  slug: string;
+  title: string;
+  line: string;
+  meta: string;
+}) {
+  return (
+    <li>
+      <Link
+        href={`/work/${slug}`}
+        className="group flex min-h-14 items-baseline gap-x-6 gap-y-1 border-b border-border-subtle py-4 transition-colors duration-150 hover:bg-surface"
+      >
+        <span className="font-medium text-primary transition-colors duration-150 group-hover:text-accent">
+          {title}
+        </span>
+        <span className="min-w-0 flex-1 truncate text-sm text-secondary">{line}</span>
+        <span className="label hidden sm:block">
+          {meta}
+        </span>
+        <span
+          aria-hidden
+          className="transition-transform duration-150 ease-out group-hover:translate-x-0.5"
+        >
+          →
+        </span>
+      </Link>
+    </li>
+  );
+}
+
+export default function ProjectArchivePage(): React.ReactElement {
+  const additional = moreProjects.filter((p) => p.category === "PERSONAL");
+
+  return (
+    <main id="main-content" className="page-enter flex-1">
+      <div className="mx-auto max-w-[1200px] px-6 pb-24 pt-28 md:pt-32 lg:px-10">
+        <header>
+          <p className="label-accent">
+            Project archive
+          </p>
+          <h1 className="mt-3 text-h1 text-primary">Every system in the registry.</h1>
+          <p className="mt-4 max-w-[58ch] text-body-lg text-secondary">
+            {projectCounts.total} projects: {projectCounts.featured} featured systems,
+            {" "}
+            {projectCounts.personal - projectCounts.featured} additional personal
+            builds, and {projectCounts.nti} NTI training projects.
+          </p>
+        </header>
+
+        {/* Featured */}
+        <section aria-label="Featured systems" className="mt-16">
+          <h2 className="label">
+            FEATURED SYSTEMS / {featuredProjects.length}
+          </h2>
+          <ul className="mt-4 divide-y divide-border-subtle border-t border-border-subtle">
+            {featuredProjects.map((p) => (
+              <ArchiveRow
+                key={p.slug}
+                slug={p.slug}
+                title={p.title}
+                line={p.mission ?? p.origin}
+                meta={p.status ?? p.origin}
+              />
+            ))}
+          </ul>
+        </section>
+
+        {/* Additional personal */}
+        <section aria-label="Additional personal work" className="mt-14">
+          <h2 className="label">
+            MORE PERSONAL WORK / {additional.length}
+          </h2>
+          <ul className="mt-4 divide-y divide-border-subtle border-t border-border-subtle">
+            {additional.map((p) => (
+              <ArchiveRow
+                key={p.slug}
+                slug={p.slug}
+                title={p.title}
+                line={p.mission ?? p.origin}
+                meta={p.origin}
+              />
+            ))}
+          </ul>
+        </section>
+
+        {/* NTI curriculum */}
+        <section aria-label="NTI curriculum projects" className="mt-14 scroll-mt-24" id="curriculum">
+          <h2 className="label text-curriculum">
+            CURRICULUM / NTI · {ntiProjects.length}
+          </h2>
+          <ul className="mt-4 divide-y divide-border-subtle border-t border-border-subtle">
+            {ntiProjects.map((p, i) => (
+              <ArchiveRow
+                key={p.slug}
+                slug={p.slug}
+                title={p.title}
+                line={p.mission ?? "NTI Flutter track training project."}
+                meta={`NTI · ${String(i + 1).padStart(2, "0")}`}
+              />
+            ))}
+          </ul>
+        </section>
+
+        <p className="mt-16">
+          <Link
+            href="/#work"
+            className="btn btn-outline"
+          >
+            ← BACK TO WORK
+          </Link>
+        </p>
+      </div>
+    </main>
+  );
+}
