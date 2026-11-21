@@ -38,6 +38,9 @@ const SOCIALS = [
   { label: "WhatsApp", href: siteConfig.whatsappUrl, Icon: MessageCircle },
 ] as const;
 
+
+
+
 export function HeroSection(): React.ReactElement {
   return (
     <section id="top" className="relative overflow-hidden">
@@ -53,84 +56,114 @@ export function HeroSection(): React.ReactElement {
         style={{ background: "var(--color-glow-2)" }}
       />
 
-      <div className="relative mx-auto flex max-w-5xl flex-col items-center px-6 pt-20 pb-14 text-center md:pt-24">
-        <div
-          className="rounded-full p-1"
-          style={{ background: "linear-gradient(135deg, var(--color-accent), var(--color-accent-2))" }}
-        >
-          <Image
-            src="/images/me-graduation.jpg"
-            alt="Karim Tamer"
-            width={132}
-            height={132}
-            priority
-            className="h-[132px] w-[132px] rounded-full border-4 border-bg object-cover object-[center_22%]"
-          />
-        </div>
+      <div className="relative mx-auto grid max-w-5xl grid-cols-1 items-center gap-12 px-6 pt-16 pb-14 md:pt-20 lg:grid-cols-12">
+        {/* text column */}
+        <div className="text-center lg:col-span-7 lg:text-left">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border-default bg-surface px-4 py-2 text-[13px] font-semibold text-accent">
+            <span
+              className="h-2 w-2 rounded-full"
+              style={{ background: "linear-gradient(90deg, var(--color-accent), var(--color-accent-2))" }}
+            />
+            {siteConfig.role} · Instructor at NTI
+          </span>
 
-        <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-border-default bg-surface px-4 py-2 text-[13px] font-semibold text-accent">
-          <span
-            className="h-2 w-2 rounded-full"
-            style={{ background: "linear-gradient(90deg, var(--color-accent), var(--color-accent-2))" }}
-          />
-          {siteConfig.role} · Instructor at NTI
-        </span>
+          <h1 className="mt-6 font-sans text-5xl font-extrabold tracking-tight text-primary md:text-7xl">
+            Karim <span className="text-gradient">Tamer</span>
+          </h1>
 
-        <h1 className="mt-6 font-sans text-5xl font-extrabold tracking-tight text-primary md:text-7xl">
-          Karim <span className="text-gradient">Tamer</span>
-        </h1>
+          <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-secondary lg:mx-0">
+            I build mobile apps people use, and teach others to build theirs. Apps
+            live on Google Play, and 100+ engineers trained at NTI so far.
+          </p>
 
-        <p className="mt-5 max-w-xl text-lg leading-relaxed text-secondary">
-          I build mobile apps people use, and teach others to build theirs. Apps
-          live on Google Play, and 100+ engineers trained at NTI so far.
-        </p>
-
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
-          <a
-            href="#work"
-            className="btn-gradient rounded-full px-6 py-3.5 text-[15px] font-semibold"
-          >
-            View my work
-          </a>
-          <a
-            href={siteConfig.resumeUrl}
-            className="rounded-full border border-border-default bg-surface px-6 py-3.5 text-[15px] font-semibold text-primary transition-colors hover:border-accent"
-          >
-            Download resume
-          </a>
-          <a
-            href="#contact"
-            className="rounded-full border border-border-default bg-surface px-6 py-3.5 text-[15px] font-semibold text-primary transition-colors hover:border-accent"
-          >
-            Get in touch
-          </a>
-        </div>
-
-        <div className="mt-7 flex items-center gap-3.5">
-          {SOCIALS.map(({ label, href, Icon }) => (
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5 lg:justify-start">
             <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={label}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-border-default bg-surface text-muted transition-colors hover:border-accent hover:text-accent"
+              href="#work"
+              className="btn-gradient rounded-full px-6 py-3.5 text-[15px] font-semibold"
             >
-              <Icon size={18} />
+              View my work
             </a>
-          ))}
+            <a
+              href={siteConfig.resumeUrl}
+              className="rounded-full border border-border-default bg-surface px-6 py-3.5 text-[15px] font-semibold text-primary transition-colors hover:border-accent"
+            >
+              Download resume
+            </a>
+            <a
+              href="#contact"
+              className="rounded-full border border-border-default bg-surface px-6 py-3.5 text-[15px] font-semibold text-primary transition-colors hover:border-accent"
+            >
+              Get in touch
+            </a>
+          </div>
+
+          <div className="mt-8 flex items-center justify-center gap-3 lg:justify-start">
+            {SOCIALS.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={label}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-border-default bg-surface text-muted transition-colors hover:border-accent hover:text-accent"
+              >
+                <Icon size={18} />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* photo column */}
+        <div className="flex justify-center lg:col-span-5 lg:justify-end">
+          <div className="relative">
+            <div
+              aria-hidden
+              className="absolute -inset-6 rounded-[2rem] blur-2xl"
+              style={{ background: "linear-gradient(135deg, var(--color-glow-1), var(--color-glow-2))" }}
+            />
+            <div
+              className="relative rotate-2 rounded-[2rem] p-1.5 transition-transform duration-300 hover:rotate-0"
+              style={{ background: "linear-gradient(135deg, var(--color-accent), var(--color-accent-2))" }}
+            >
+              <Image
+                src="/images/me-graduation.jpg"
+                alt="Karim Tamer"
+                width={360}
+                height={440}
+                priority
+                className="h-auto w-64 rounded-[1.7rem] border-4 border-bg object-cover object-[center_22%] md:w-80"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* skills marquee */}
-      <div className="overflow-hidden border-y border-border-subtle py-4">
-        <div className="animate-marquee flex w-max whitespace-nowrap font-mono text-[13px] font-semibold tracking-[0.18em] text-muted">
+      {/* skills marquee: edge fades, gradient separators, hover pause */}
+      <div className="relative overflow-hidden border-y border-border-subtle py-5">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24"
+          style={{ background: "linear-gradient(to right, var(--color-bg), transparent)" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24"
+          style={{ background: "linear-gradient(to left, var(--color-bg), transparent)" }}
+        />
+        <div className="animate-marquee marquee-track flex w-max items-center whitespace-nowrap">
           {[0, 1].map((copy) => (
-            <span key={copy} aria-hidden={copy === 1}>
+            <span key={copy} aria-hidden={copy === 1} className="flex items-center">
               {SKILLS.map((skill) => (
-                <span key={`${copy}-${skill}`}>
-                  {skill}
-                  <span className="mx-4 text-accent">·</span>
+                <span
+                  key={`${copy}-${skill}`}
+                  className="flex items-center font-mono text-sm font-semibold tracking-[0.22em] text-secondary"
+                >
+                  <span className="px-6">{skill}</span>
+                  <span
+                    aria-hidden
+                    className="h-1.5 w-1.5 rotate-45"
+                    style={{ background: "linear-gradient(135deg, var(--color-accent), var(--color-accent-2))" }}
+                  />
                 </span>
               ))}
             </span>

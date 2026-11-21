@@ -1,58 +1,20 @@
-import type { CurriculumApp, MediaItem, Project, ProjectCategory } from "@/types";
+import type { CurriculumApp, MediaItem, Project } from "@/types";
 import { siteConfig } from "@/lib/site-config";
 
-export const projectCategoryLabels: Record<ProjectCategory, string> = {
-  PERSONAL_PRODUCTS: "Personal Products",
-  CLIENT_WORK: "Client Work",
-  GRADUATION_PROJECT: "Graduation Project",
-  NTI_PROJECTS: "NTI Projects",
-};
-
-const projectEntries: readonly Project[] = [
+const personalProjects: readonly Project[] = [
   {
     slug: "jobtasker",
     title: "JobTasker",
     status: "LIVE",
-    category: "PERSONAL_PRODUCTS",
+    origin: "PERSONAL PRODUCT",
+    category: "PERSONAL",
     evidence: "FLAGSHIP",
     mission:
       "A productivity app that turns tasks and job applications into deliberate, tracked work, live on Google Play.",
-    caseStudy: {
-      problem:
-        "Job seekers applying to many positions can struggle to remember which companies they applied to, when they applied, the job listing URLs, and which CV version they submitted.",
-      solution:
-        "JobTasker is an offline-first Flutter productivity application that centralizes job application tracking and task management.",
-      role:
-        "Sole Flutter Developer. Built the application independently from scratch, selected its architecture, state management, database, packages, and technical stack, and handled end-to-end development and its Google Play release.",
-      features: [
-        "Register and track job applications.",
-        "Set employment type: Full-time or Part-time.",
-        "Set work arrangement: Remote or Onsite.",
-        "Save company names and job listing URLs.",
-        "Attach the CV used for each application.",
-        "Review applications and progress in a dashboard.",
-        "Update application status, including Accepted and Rejected.",
-        "Manage tasks.",
-        "Receive local notifications and reminders.",
-      ],
-      technicalDecisions: [
-        { label: "ARCHITECTURE", value: "MVVM" },
-        { label: "STATE MANAGEMENT", value: "CUBIT" },
-        { label: "LOCAL DATABASE", value: "SQFLITE" },
-        { label: "NOTIFICATIONS", value: "LOCAL NOTIFICATIONS" },
-        { label: "CONNECTIVITY", value: "FULLY OFFLINE" },
-      ],
-      testing: [
-        "Personally tested on a device.",
-        "12 testers participated in Google Play Closed Testing over a 14-day period.",
-        "Testing was exploratory/random, not based on a predefined structured test plan.",
-        "Feedback was collected, bugs were fixed, and improvements were made during testing.",
-      ],
-      release: ["Published on Google Play."],
-    },
     stack: ["FLUTTER", "DART", "MVVM", "CUBIT", "SQFLITE"],
     facts: [
       { label: "CHANNEL", value: "GOOGLE PLAY" },
+      { label: "USERS", value: "LIVE" },
       { label: "MONITORING", value: "SENTRY" },
       { label: "UPDATES", value: "SHOREBIRD OTA" },
       { label: "OFFLINE", value: "FIRST" },
@@ -193,13 +155,17 @@ const projectEntries: readonly Project[] = [
     },
     isImportant: true,
     priority: 1,
-    links: [{ label: "SOURCE ↗", href: `${siteConfig.githubUrl}/Taskify-App` }],
+    links: [
+      { label: "GOOGLE PLAY ↗", href: "https://play.google.com/store/apps/details?id=com.karim.jobtasker" },
+      { label: "SOURCE ↗", href: `${siteConfig.githubUrl}/Taskify-App` },
+    ],
   },
   {
     slug: "marsa",
     title: "Marsa",
     status: "BUILDING",
-    category: "PERSONAL_PRODUCTS",
+    origin: "PERSONAL PRODUCT",
+    category: "PERSONAL",
     evidence: "FLAGSHIP",
     mission:
       "A vacation-rental booking platform where guests discover units, book them in four guided steps, and pay through local rails.",
@@ -395,13 +361,14 @@ const projectEntries: readonly Project[] = [
     },
     isImportant: true,
     priority: 2,
-    links: [],
+    links: [{ label: "SOURCE ↗", href: `${siteConfig.githubUrl}/marsa-app-readme` }],
   },
   {
     slug: "quran-cuts",
     title: "Quran Cuts",
     status: "DELIVERED",
-    category: "PERSONAL_PRODUCTS",
+    origin: "PERSONAL PRODUCT",
+    category: "PERSONAL",
     evidence: "FLAGSHIP",
     mission:
       "An on-device generator that turns Quran verses into shareable vertical video clips: text, recitation, and template composed entirely on the phone.",
@@ -551,7 +518,8 @@ const projectEntries: readonly Project[] = [
     slug: "mothooq",
     title: "Mothooq",
     status: "DELIVERED",
-    category: "CLIENT_WORK",
+    origin: "CLIENT ENGAGEMENT",
+    category: "PERSONAL",
     evidence: "FLAGSHIP",
     mission:
       "A used-car marketplace where every listing follows a mandatory inspection at a partner service center. Built as a client engagement and shipped as an MVP in two weeks.",
@@ -690,7 +658,8 @@ const projectEntries: readonly Project[] = [
     slug: "bidmart",
     title: "BidMart",
     status: "DELIVERED",
-    category: "GRADUATION_PROJECT",
+    origin: "GRADUATION PROJECT",
+    category: "PERSONAL",
     evidence: "SELECTED",
     mission:
       "A real-time auction platform with live bidding, dynamic price updates, seller-side product management, and an integrated payment flow.",
@@ -791,7 +760,8 @@ const projectEntries: readonly Project[] = [
   {
     slug: "chatbot-app",
     title: "Chatbot App",
-    category: "PERSONAL_PRODUCTS",
+    origin: "PERSONAL PRODUCT",
+    category: "PERSONAL",
     evidence: "SELECTED",
     mission:
       "A bilingual AI chat assistant with Arabic/English support, Firebase sign-in, and persisted user preferences.",
@@ -837,7 +807,8 @@ const projectEntries: readonly Project[] = [
   {
     slug: "bookly",
     title: "Bookly",
-    category: "PERSONAL_PRODUCTS",
+    origin: "PERSONAL PRODUCT",
+    category: "PERSONAL",
     evidence: "LIMITED",
     mission:
       "A book discovery application consuming REST APIs, with custom browsing animations.",
@@ -861,7 +832,8 @@ const projectEntries: readonly Project[] = [
   {
     slug: "playzone",
     title: "PlayZone",
-    category: "PERSONAL_PRODUCTS",
+    origin: "PERSONAL PRODUCT",
+    category: "PERSONAL",
     evidence: "LIMITED",
     stack: [],
     facts: [{ label: "DOCUMENTATION", value: "PENDING" }],
@@ -966,7 +938,8 @@ export const ntiProjects: readonly Project[] = curriculumApps.map(
     slug: app.slug,
     title: app.title,
     status: "CURRICULUM",
-    category: "NTI_PROJECTS",
+    origin: "NTI CURRICULUM",
+    category: "NTI",
     evidence: "LIMITED",
     mission:
       "Individual training project completed during the NTI Flutter track at Creativa Mansoura.",
@@ -979,9 +952,9 @@ export const ntiProjects: readonly Project[] = curriculumApps.map(
   }),
 );
 
-/** Every registry entry in presentation order. */
+/** Every registry entry (personal + NTI) in presentation order. */
 export const allProjects: readonly Project[] = [
-  ...projectEntries,
+  ...personalProjects,
   ...ntiProjects,
 ];
 
@@ -998,13 +971,9 @@ export const moreProjects: readonly Project[] = allProjects
 /** Derived counts - never hardcode these numbers in components. */
 export const projectCounts = {
   total: allProjects.length,
-  personal: allProjects.filter((project) => project.category === "PERSONAL_PRODUCTS")
+  personal: allProjects.filter((project) => project.category === "PERSONAL")
     .length,
-  nti: allProjects.filter((project) => project.category === "NTI_PROJECTS").length,
-  client: allProjects.filter((project) => project.category === "CLIENT_WORK").length,
-  graduation: allProjects.filter(
-    (project) => project.category === "GRADUATION_PROJECT",
-  ).length,
+  nti: allProjects.filter((project) => project.category === "NTI").length,
   featured: featuredProjects.length,
   more: moreProjects.length,
 } as const;

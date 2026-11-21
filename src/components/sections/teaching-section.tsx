@@ -2,59 +2,67 @@ import { ntiProjects } from "@/data/registry";
 import { siteFacts } from "@/data/facts";
 import { teachingTopics } from "@/data/skills";
 import Link from "next/link";
-import { SectionHeader } from "@/components/shared/section-header";
+import { Reveal } from "@/components/shared/reveal";
 
 
 export function TeachingSection({ className }: { className?: string }): React.ReactElement {
   return (
     <section id="teaching" aria-label="Teaching" className={`scroll-mt-24 ${className ?? ""}`}>
-      <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
-        <SectionHeader
-            index="03"
-            title="Teaching"
-            lede="Teaching is the same operational skill applied to people: run the program, ship the outcome, own the result."
-          />
+      <div className="mx-auto max-w-5xl px-6">
+        <Reveal>
+          <p className="font-mono text-[12px] font-bold tracking-[0.22em] text-accent">
+            04 · TEACHING
+          </p>
+          <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight text-primary md:text-4xl">
+            Teaching is building, <span className="text-gradient">for people</span>
+          </h2>
+        </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 gap-14 lg:grid-cols-12">
-          {/* Monument + copy */}
-          <div className="lg:col-span-5">
-            <p className="text-metric-2xl text-primary">
-              {siteFacts.traineesTrained}
-            </p>
-            <p className="mt-2 label">
-              TRAINEES TRAINED ACROSS {siteFacts.trainingRounds} ROUNDS ·{" "}
-              {siteFacts.hoursPerRound} HOURS / ROUND
-            </p>
-            <p className="mt-6 max-w-[48ch] text-body-lg text-secondary">
-              I teach developers how to turn requirements into software that can
-              survive outside the classroom: the same Cubit, REST API, and MVVM
-              practices used by the systems in my registry.
-            </p>
-          </div>
+        <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12">
+          <Reveal className="lg:col-span-5">
+            <div
+              className="rounded-2xl border border-border-default bg-surface p-8"
+              style={{ background: "linear-gradient(160deg, var(--color-glow-1), transparent 60%), var(--color-surface)" }}
+            >
+              <p className="text-gradient font-sans text-6xl font-extrabold tracking-tight">
+                {siteFacts.engineersTrained}
+              </p>
+              <p className="mt-2 font-mono text-[11px] font-bold tracking-[0.18em] text-muted">
+                ENGINEERS TRAINED ACROSS {siteFacts.trainingRounds} ROUNDS
+              </p>
+              <p className="mt-5 text-[15px] leading-relaxed text-secondary">
+                I teach developers how to turn requirements into software that survives
+                outside the classroom: the same Cubit, REST API, and MVVM practices used
+                by the systems in my registry.
+              </p>
+            </div>
 
-          <div className="lg:col-span-7 lg:pl-8">
-            {/* Topics */}
-            <h3 className="label">
-              WHAT I TEACH
-            </h3>
-            <ul className="mono-data mt-4 flex flex-wrap gap-x-3 gap-y-2">
-              {teachingTopics.map((topic) => (
-                <li key={topic} className="flex items-center gap-3">
-                  <span>{topic}</span>
-                  <span aria-hidden className="text-border-default">
-                    /
+            <div className="mt-6">
+              <h3 className="font-mono text-[11px] font-bold tracking-[0.22em] text-muted">
+                WHAT I TEACH
+              </h3>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {teachingTopics.map((topic) => (
+                  <span
+                    key={topic}
+                    className="rounded-full border border-border-default bg-surface px-3 py-1 font-mono text-[11px] font-semibold tracking-wide text-secondary"
+                  >
+                    {topic}
                   </span>
-                </li>
-              ))}
-            </ul>
+                ))}
+              </div>
+            </div>
+          </Reveal>
 
-            {/* Curriculum set */}
-            <div className="mt-10 border-t border-border-subtle pt-8">
-              <div className="flex items-center gap-4">
-                <span aria-hidden className="text-curriculum">
-                  ◆
-                </span>
-                <h3 className="label-primary">
+          <Reveal delay={0.1} className="lg:col-span-7">
+            <div className="rounded-2xl border border-border-default bg-surface p-6 md:p-8">
+              <div className="flex items-center gap-3">
+                <span
+                  aria-hidden
+                  className="h-1.5 w-1.5 rotate-45"
+                  style={{ background: "linear-gradient(135deg, var(--color-accent), var(--color-accent-2))" }}
+                />
+                <h3 className="font-mono text-[11px] font-bold tracking-[0.22em] text-accent">
                   CURRICULUM / NTI · {ntiProjects.length} PROJECTS
                 </h3>
               </div>
@@ -64,34 +72,31 @@ export function TeachingSection({ className }: { className?: string }): React.Re
                     <Link
                       href={`/work/${project.slug}`}
                       aria-label={`${project.title} - open project details`}
-                      className="group/row -mx-3 flex cursor-pointer items-baseline justify-between rounded-md px-3 py-3.5 transition-colors duration-150 hover:bg-surface"
+                      className="group/row -mx-2 flex items-baseline gap-4 rounded-md px-2 py-3 transition-colors duration-150 hover:bg-bg"
                     >
-                      <span className="text-sm text-secondary transition-colors duration-150 group-hover/row:text-accent">
-                        <span className="me-3 mono-note">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
+                      <span className="font-mono text-[11px] font-bold tracking-[0.18em] text-muted">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="flex-1 font-sans font-semibold text-primary transition-colors group-hover/row:text-accent">
                         {project.title}
                       </span>
-                      <span className="mono-note">NTI TRACK</span>
+                      <span aria-hidden className="text-muted transition-colors group-hover/row:text-accent">
+                        →
+                      </span>
                     </Link>
                   </li>
                 ))}
               </ol>
-            </div>
-
-            {/* Verified factual outcome */}
-            <div className="mt-10 border-t border-border-subtle pt-8">
-              <h3 className="label">OUTCOME</h3>
-              <p className="mt-3 max-w-[58ch] text-body-lg text-secondary">
-                I have trained {siteFacts.traineesTrained} trainees across{" "}
-                {siteFacts.trainingRounds} rounds of NTI&apos;s intensive hands-on Flutter
-                program. The practical track includes real applications built and reviewed.
+              <p className="mt-6 text-[15px] leading-relaxed text-secondary">
+                {siteFacts.engineersTrained} engineers have completed NTI&apos;s intensive
+                hands-on Flutter program across {siteFacts.trainingRounds} rounds, each
+                finishing with real applications built and reviewed.
               </p>
-              <p className="mt-3 mono-note">
+              <p className="mt-3 font-mono text-[11px] font-semibold tracking-[0.18em] text-muted">
                 SOURCE: NTI INSTRUCTOR RECORD · CREATIVA MANSOURA
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

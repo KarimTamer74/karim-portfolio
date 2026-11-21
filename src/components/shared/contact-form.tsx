@@ -26,9 +26,11 @@ function validate(values: { name: string; email: string; message: string }): Fie
 }
 
 const inputClasses =
-  "w-full rounded-md border border-border-default bg-surface px-4 py-3 text-base text-primary transition-colors duration-150 placeholder:text-muted/70 focus:border-accent focus:outline-none";
+  "w-full rounded-xl border border-border-default bg-bg px-4 py-3 text-base text-primary transition-colors duration-150 placeholder:text-muted/70 focus:border-accent focus:outline-none";
 
-
+/* Sends through FormSubmit (formsubmit.co) to the site email. The first
+   submission ever triggers FormSubmit's one-time activation email to that
+   address; every message after that lands directly in the inbox. */
 export function ContactForm(): React.ReactElement {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -49,33 +51,19 @@ export function ContactForm(): React.ReactElement {
 
     setStatus("sending");
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch(`https://formsubmit.co/ajax/${siteConfig.email}`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
-          ...values,
-          subject: "New message from your portfolio website!",
+          _subject: "New message from your portfolio website",
+          name: values.name,
+          email: values.email,
+          message: values.message,
+          _captcha: "false",
+          _template: "table",
         }),
       });
-      let result: unknown;
-      try {
-        result = await response.json();
-      } catch {
-        throw new Error("Invalid Web3Forms response");
-      }
-
-      if (
-        !response.ok ||
-        typeof result !== "object" ||
-        result === null ||
-        Array.isArray(result) ||
-        !("success" in result) ||
-        result.success !== true
-      ) {
-        throw new Error("Web3Forms submission failed");
-      }
-
+      if (!response.ok) throw new Error(`FormSubmit responded ${response.status}`);
       setStatus("success");
       setValues({ name: "", email: "", message: "" });
     } catch {
@@ -84,13 +72,14 @@ export function ContactForm(): React.ReactElement {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate aria-label="Send a message">
-      <div className="space-y-5">
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="rounded-2xl border border-border-default bg-surface p-6 md:p-8"
+    >
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
-          <label
-            htmlFor="contact-name"
-            className="mb-2 block label"
-          >
+          <label htmlFor="contact-name" className="font-mono text-[11px] font-bold tracking-[0.18em] text-muted">
             NAME
           </label>
           <input
@@ -100,23 +89,14 @@ export function ContactForm(): React.ReactElement {
             autoComplete="name"
             value={values.name}
             onChange={(e) => setField("name", e.target.value)}
-            aria-invalid={Boolean(errors.name)}
-            aria-describedby={errors.name ? "contact-name-error" : undefined}
-            className={inputClasses}
+            className={`mt-2 ${inputClasses}`}
+            placeholder="Your name"
           />
-          {errors.name ? (
-            <p id="contact-name-error" role="alert" className="mt-1.5 flex items-center gap-1.5 text-sm">
-              <span aria-hidden>⚠</span>
-              <span className="text-danger">{errors.name}</span>
-            </p>
-          ) : null}
+          {errors.name && <p className="mt-1.5 text-sm text-accent">{errors.name}</p>}
         </div>
 
         <div>
-          <label
-            htmlFor="contact-email"
-            className="mb-2 block label"
-          >
+          <label htmlFor="contact-email" className="font-mono text-[11px] font-bold tracking-[0.18em] text-muted">
             EMAIL
           </label>
           <input
@@ -126,77 +106,48 @@ export function ContactForm(): React.ReactElement {
             autoComplete="email"
             value={values.email}
             onChange={(e) => setField("email", e.target.value)}
-            aria-invalid={Boolean(errors.email)}
-            aria-describedby={errors.email ? "contact-email-error" : undefined}
-            className={inputClasses}
+            className={`mt-2 ${inputClasses}`}
+            placeholder="you@example.com"
           />
-          {errors.email ? (
-            <p id="contact-email-error" role="alert" className="mt-1.5 flex items-center gap-1.5 text-sm">
-              <span aria-hidden>⚠</span>
-              <span className="text-danger">{errors.email}</span>
-            </p>
-          ) : null}
+          {errors.email && <p className="mt-1.5 text-sm text-accent">{errors.email}</p>}
         </div>
+      </div>
 
-        <div>
-          <label
-            htmlFor="contact-message"
-            className="mb-2 block label"
-          >
-            MESSAGE
-          </label>
-          <textarea
-            id="contact-message"
-            name="message"
-            rows={5}
-            value={values.message}
-            onChange={(e) => setField("message", e.target.value)}
-            aria-invalid={Boolean(errors.message)}
-            aria-describedby={errors.message ? "contact-message-error" : undefined}
-            className={`${inputClasses} resize-y`}
-          />
-          {errors.message ? (
-            <p id="contact-message-error" role="alert" className="mt-1.5 flex items-center gap-1.5 text-sm">
-              <span aria-hidden>⚠</span>
-              <span className="text-danger">{errors.message}</span>
-            </p>
-          ) : null}
-        </div>
+      <div className="mt-5">
+        <label htmlFor="contact-message" className="font-mono text-[11px] font-bold tracking-[0.18em] text-muted">
+          MESSAGE
+        </label>
+        <textarea
+          id="contact-message"
+          name="message"
+          rows={6}
+          value={values.message}
+          onChange={(e) => setField("message", e.target.value)}
+          className={`mt-2 resize-y ${inputClasses}`}
+          placeholder="Tell me about your project, role, or idea."
+        />
+        {errors.message && <p className="mt-1.5 text-sm text-accent">{errors.message}</p>}
       </div>
 
       <button
         type="submit"
         disabled={status === "sending"}
-        className="btn btn-solid mt-7 w-full cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-6 py-3.5 font-sans text-[15px] font-bold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
-        {status === "sending" ? "WORKING…" : "SEND MESSAGE →"}
+        {status === "sending" ? "Sending…" : "Send message"}
+        {status !== "sending" && <span aria-hidden>→</span>}
       </button>
 
-      <div aria-live="polite" className="min-h-12 mt-4">
-        {status === "success" ? (
-          <p className="state-in flex items-start gap-2 text-sm text-secondary">
-            <span aria-hidden className="text-live">✓</span>
-            <span>
-              SENT. I read every message and reply personally.
-              <br />
-              For anything urgent, use{" "}
-              <a href={`mailto:${siteConfig.email}`} className="underline underline-offset-4 hover:text-primary">
-                EMAIL →
-              </a>{" "}
-              directly.
-            </span>
-          </p>
-        ) : null}
-        {status === "error" ? (
-          <p role="alert" className="state-in flex items-start gap-2 text-sm text-secondary">
-            <span aria-hidden className="text-danger">⚠</span>
-            <span>
-              MESSAGE NOT SENT. Check your connection and try again, or use EMAIL →
-              directly.
-            </span>
-          </p>
-        ) : null}
-      </div>
+      {status === "success" && (
+        <p className="mt-4 text-sm font-medium text-live" role="status">
+          Message sent. I will get back to you soon.
+        </p>
+      )}
+      {status === "error" && (
+        <p className="mt-4 text-sm font-medium text-accent" role="alert">
+          Something went wrong sending that. Email me directly at {siteConfig.email}.
+        </p>
+      )}
     </form>
   );
 }

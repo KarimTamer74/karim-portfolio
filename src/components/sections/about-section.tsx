@@ -1,76 +1,83 @@
 import Image from "next/image";
 import { education, courses } from "@/data/education";
-import { skillGroups } from "@/data/skills";
 import { siteConfig } from "@/lib/site-config";
-import { SectionHeader } from "@/components/shared/section-header";
+import { Reveal } from "@/components/shared/reveal";
 
 
 export function AboutSection({ className }: { className?: string }): React.ReactElement {
   return (
     <section id="about" aria-label="About" className={`scroll-mt-24 ${className ?? ""}`}>
-      <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
-        <SectionHeader index="04" title="About" lede="The operator's file." />
+      <div className="mx-auto max-w-5xl px-6">
+        <Reveal>
+          <p className="font-mono text-[12px] font-bold tracking-[0.22em] text-accent">
+            05 · ABOUT
+          </p>
+          <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight text-primary md:text-4xl">
+            The person behind <span className="text-gradient">the apps</span>
+          </h2>
+        </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 gap-14 lg:grid-cols-12">
-          {/* Portrait + credentials rail */}
-          <div className="lg:col-span-4">
-            <Image
-              src={siteConfig.profileImage}
-              alt={`Portrait of ${siteConfig.name}`}
-              width={480}
-              height={480}
-              sizes="(min-width: 1024px) 24rem, 60vw"
-              className="w-56 rounded-lg object-cover"
-            />
-            <dl className="mt-10 space-y-6 border-t border-border-subtle pt-8">
+        <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12">
+          {/* Portrait + credentials */}
+          <Reveal className="lg:col-span-4">
+            <div
+              className="w-fit rounded-3xl p-1"
+              style={{ background: "linear-gradient(135deg, var(--color-accent), var(--color-accent-2))" }}
+            >
+              <Image
+                src={siteConfig.profileImage}
+                alt={`Portrait of ${siteConfig.name}`}
+                width={400}
+                height={400}
+                sizes="(min-width: 1024px) 20rem, 70vw"
+                className="w-64 rounded-[20px] border-4 border-bg object-cover object-[center_22%]"
+              />
+            </div>
+            <dl className="mt-8 space-y-6 border-t border-border-subtle pt-6">
               <div>
-                <dt className="label">EDUCATION</dt>
+                <dt className="font-mono text-[11px] font-bold tracking-[0.18em] text-muted">
+                  EDUCATION
+                </dt>
                 <dd className="mt-1 text-sm text-primary">
                   {education.degree}
                   <br />
-                  {education.university} · {education.period}
+                  <span className="text-secondary">
+                    {education.university} · {education.period}
+                  </span>
                 </dd>
               </div>
               <div>
-                <dt className="label">
-                  INSTRUCTOR TRAINING
+                <dt className="font-mono text-[11px] font-bold tracking-[0.18em] text-muted">
+                  INSTRUCTOR AT
                 </dt>
-                <dd className="mt-1 mono-note text-secondary">
-                  NTI · CREATIVA MANSOURA
-                </dd>
+                <dd className="mt-1 text-sm text-secondary">NTI · Creativa Mansoura</dd>
               </div>
               <div>
-                <dt className="label">
+                <dt className="font-mono text-[11px] font-bold tracking-[0.18em] text-muted">
                   CONTINUING EDUCATION
                 </dt>
-                <dd className="mt-2 space-y-1.5">
+                <dd className="mt-2 space-y-2">
                   {courses.map((course) => (
                     <p key={course.title} className="text-sm text-secondary">
                       {course.title}
-                      <span className="block mono-note">
+                      <span className="block font-mono text-[11px] tracking-wide text-muted">
                         {course.platform} · {course.duration}
                       </span>
                     </p>
                   ))}
                 </dd>
               </div>
-              <div>
-                <dt className="label">FOCUS</dt>
-                <dd className="mt-1 mono-note text-secondary">
-                  FLUTTER · PRODUCT ENGINEERING · WEB
-                </dd>
-              </div>
             </dl>
-          </div>
+          </Reveal>
 
-          {/* The arc + skills */}
-          <div className="lg:col-span-8 lg:pl-8">
-            <div className="max-w-[62ch] space-y-10">
-              <div>
-                <h3 className="label-accent">
+          {/* The arc */}
+          <Reveal delay={0.1} className="lg:col-span-8 lg:pl-8">
+            <div className="space-y-8">
+              <div className="rounded-2xl border border-border-default bg-surface p-6 md:p-8">
+                <h3 className="font-mono text-[11px] font-bold tracking-[0.22em] text-accent">
                   ACT I / TRAINEE
                 </h3>
-                <p className="mt-3 text-body-lg text-secondary">
+                <p className="mt-3 leading-relaxed text-secondary">
                   In February 2025 I sat on the other side of NTI&apos;s Flutter track as a
                   trainee. I finished it in March, and it gave me the two things every
                   developer eventually needs: a structure to build against, and the
@@ -78,50 +85,31 @@ export function AboutSection({ className }: { className?: string }): React.React
                 </p>
               </div>
 
-              <div>
-                <h3 className="label-accent">
+              <div className="rounded-2xl border border-border-default bg-surface p-6 md:p-8">
+                <h3 className="font-mono text-[11px] font-bold tracking-[0.22em] text-accent">
                   ACT II / BUILDER
                 </h3>
-                <p className="mt-3 text-body-lg text-secondary">
-                  Two weeks after finishing, a client handed me a marketplace and a
-                  fourteen-day deadline. I delivered. Since then I&apos;ve kept building:
-                  an app live on Google Play, an on-device video generator, and a booking
-                  platform that is still growing. Shipping is where the real education
-                  started.
+                <p className="mt-3 leading-relaxed text-secondary">
+                  Since then I have kept building: an app live on Google Play, an
+                  on-device video generator, and a booking platform that is still
+                  growing. Shipping is where the real education started.
                 </p>
               </div>
 
-              <div>
-                <h3 className="label-accent">
+              <div className="rounded-2xl border border-border-default bg-surface p-6 md:p-8">
+                <h3 className="font-mono text-[11px] font-bold tracking-[0.22em] text-accent">
                   ACT III / INSTRUCTOR
                 </h3>
-                <p className="mt-3 text-body-lg text-secondary">
+                <p className="mt-3 leading-relaxed text-secondary">
                   In October 2025, NTI hired me back to teach the track I had just
                   completed. My first round, I was nervous teaching people older than me.
-                  Six rounds and 120+ trainees later, teaching is how I keep myself
+                  Five rounds and 100+ engineers later, teaching is how I keep myself
                   honest: if I can&apos;t explain it clearly, I don&apos;t fully understand
                   it yet.
                 </p>
               </div>
             </div>
-
-            {/* Skill inventory: mono groups, no progress bars */}
-            <div className="mt-16 border-t border-border-subtle pt-10">
-              <h3 className="label">
-                SKILL INVENTORY
-              </h3>
-              <dl className="mt-6 grid grid-cols-1 gap-x-10 gap-y-7 sm:grid-cols-2">
-                {skillGroups.map((group) => (
-                  <div key={group.label}>
-                    <dt className="mono-note">{group.label}</dt>
-                    <dd className="mono-data mt-2">
-                      {group.items.join(" · ")}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

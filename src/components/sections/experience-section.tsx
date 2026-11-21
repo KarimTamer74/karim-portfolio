@@ -1,81 +1,86 @@
 import { jobs } from "@/data/experience";
-import { SectionHeader } from "@/components/shared/section-header";
+import { Reveal } from "@/components/shared/reveal";
 import type { Job } from "@/types";
 
 
 export function ExperienceSection({ className }: { className?: string }): React.ReactElement {
-  const [instructor, freelance, trainee] = jobs;
-
   return (
     <section id="experience" aria-label="Experience" className={`scroll-mt-24 ${className ?? ""}`}>
-      <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
-        <SectionHeader
-            index="02"
-            title="Experience"
-            lede="An operation log: increasing responsibility, newest first."
-          />
+      <div className="mx-auto max-w-5xl px-6">
+        <Reveal>
+          <p className="font-mono text-[12px] font-bold tracking-[0.22em] text-accent">
+            03 · EXPERIENCE
+          </p>
+          <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight text-primary md:text-4xl">
+            Where I have <span className="text-gradient">worked</span>
+          </h2>
+          <p className="mt-3 max-w-[52ch] text-secondary">
+            Increasing responsibility, newest first.
+          </p>
+        </Reveal>
 
-        <div className="mt-16 space-y-20">
-          <InstructorEntry job={instructor} />
-          <CompactEntry job={freelance} />
-          <CompactEntry job={trainee} last />
+        <div className="mt-12 space-y-5">
+          {jobs.map((job, i) => (
+            <Reveal key={`${job.position}-${job.organization}`} delay={i * 0.08}>
+              <JobCard job={job} />
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function InstructorEntry({ job }: { job: Job }): React.ReactElement {
-  return (
-    <article aria-labelledby="exp-instructor" className="grid grid-cols-1 gap-8 lg:grid-cols-12">
-      <div className="lg:col-span-7">
-        <p className="label">{job.period}</p>
-        <h3 id="exp-instructor" className="mt-3 text-h1 text-primary">
-          {job.position}
-          <span className="text-secondary"> · {job.organization}</span>
-        </h3>
-        <p className="mt-4 max-w-[58ch] text-body-lg text-secondary">{job.summary}</p>
-        <ul className="mt-6 max-w-[62ch] space-y-2">
-          {job.points.map((point) => (
-            <li key={point} className="flex gap-3">
-              <span aria-hidden className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
-              <span>{point}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <dl className="lg:col-span-5 lg:pl-8">
-        <div className="divide-y divide-border-subtle border-y border-border-subtle">
-          {job.facts?.map((fact) => (
-            <div key={fact.label} className="flex items-baseline justify-between py-4">
-              <dt className="label">
-                {fact.label}
-              </dt>
-              <dd className="text-metric-md text-primary">
-                {fact.value}
-              </dd>
-            </div>
-          ))}
-        </div>
-      </dl>
-    </article>
-  );
-}
-
-function CompactEntry({ job, last = false }: { job: Job; last?: boolean }): React.ReactElement {
+function JobCard({ job }: { job: Job }): React.ReactElement {
   return (
     <article
       aria-label={`${job.position} at ${job.organization}`}
-      className={`border-t border-border-subtle pt-8 ${last ? "" : "pb-2"}`}
+      className="rounded-2xl border border-border-default bg-surface p-6 transition-colors duration-200 hover:border-accent md:p-8"
     >
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <h3 className="headline-h3-normal text-primary">
-          {job.position}
-          <span className="text-secondary"> · {job.organization}</span>
-        </h3>
-        <p className="label">{job.period}</p>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <span
+          className="inline-flex items-center gap-2 rounded-full px-3 py-1 font-mono text-[11px] font-bold tracking-[0.14em] text-accent"
+          style={{ background: "var(--color-glow-1)" }}
+        >
+          {job.kind}
+        </span>
+        <p className="font-mono text-[11px] font-semibold tracking-[0.18em] text-muted">
+          {job.period}
+        </p>
       </div>
-      <p className="mt-2 max-w-[62ch] text-sm text-secondary">{job.summary}</p>
+
+      <h3 className="mt-4 font-sans text-xl font-bold tracking-tight text-primary">
+        {job.position}
+        <span className="text-secondary"> · {job.organization}</span>
+      </h3>
+
+      <p className="mt-2 max-w-[62ch] text-[15px] leading-relaxed text-secondary">{job.summary}</p>
+
+      <ul className="mt-4 max-w-[64ch] space-y-2">
+        {job.points.map((point) => (
+          <li key={point} className="flex gap-3 text-[15px] text-secondary">
+            <span
+              aria-hidden
+              className="mt-[9px] h-1.5 w-1.5 shrink-0 rotate-45"
+              style={{ background: "linear-gradient(135deg, var(--color-accent), var(--color-accent-2))" }}
+            />
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+
+      {job.facts && (
+        <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-3 border-t border-border-subtle pt-5">
+          {job.facts.map((fact) => (
+            <div key={fact.label}>
+              <dt className="font-mono text-[10px] font-bold tracking-[0.18em] text-muted">
+                {fact.label}
+              </dt>
+              <dd className="mt-1 font-sans text-lg font-bold text-primary">{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
     </article>
   );
 }
