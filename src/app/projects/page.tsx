@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  featuredProjects,
-  moreProjects,
-  ntiProjects,
+  allProjects,
+  projectCategoryLabels,
   projectCounts,
 } from "@/data/registry";
 import { siteConfig } from "@/lib/site-config";
+import type { ProjectCategory } from "@/types";
+
+const CATEGORIES: readonly ProjectCategory[] = [
+  "PERSONAL_PRODUCTS",
+  "CLIENT_WORK",
+  "GRADUATION_PROJECT",
+  "NTI_PROJECTS",
+];
 
 export const metadata: Metadata = {
   title: "Project Archive",
@@ -28,11 +35,13 @@ function ArchiveRow({
   title,
   line,
   meta,
+  featured,
 }: {
   slug: string;
   title: string;
   line: string;
   meta: string;
+  featured: boolean;
 }) {
   return (
     <li>
@@ -43,6 +52,7 @@ function ArchiveRow({
         <span className="font-medium text-primary transition-colors duration-150 group-hover:text-accent">
           {title}
         </span>
+        {featured ? <span className="label text-accent">FEATURED</span> : null}
         <span className="min-w-0 flex-1 truncate text-sm text-secondary">{line}</span>
         <span className="label hidden sm:block">
           {meta}
@@ -59,8 +69,6 @@ function ArchiveRow({
 }
 
 export default function ProjectArchivePage(): React.ReactElement {
-  const additional = moreProjects.filter((p) => p.category === "PERSONAL");
-
   return (
     <main id="main-content" className="page-enter flex-1">
       <div className="mx-auto max-w-[1200px] px-6 pb-24 pt-28 md:pt-32 lg:px-10">
@@ -70,66 +78,48 @@ export default function ProjectArchivePage(): React.ReactElement {
           </p>
           <h1 className="mt-3 text-h1 text-primary">Every system in the registry.</h1>
           <p className="mt-4 max-w-[58ch] text-body-lg text-secondary">
-            {projectCounts.total} projects: {projectCounts.featured} featured systems,
-            {" "}
-            {projectCounts.personal - projectCounts.featured} additional personal
-            builds, and {projectCounts.nti} NTI training projects.
+            {projectCounts.total} projects across four categories, with{" "}
+            {projectCounts.featured} featured projects marked in their category.
           </p>
         </header>
 
-        {/* Featured */}
-        <section aria-label="Featured systems" className="mt-16">
-          <h2 className="label">
-            FEATURED SYSTEMS / {featuredProjects.length}
-          </h2>
-          <ul className="mt-4 divide-y divide-border-subtle border-t border-border-subtle">
-            {featuredProjects.map((p) => (
-              <ArchiveRow
-                key={p.slug}
-                slug={p.slug}
-                title={p.title}
-                line={p.mission ?? p.origin}
-                meta={p.status ?? p.origin}
-              />
-            ))}
-          </ul>
-        </section>
+        {CATEGORIES.map((category, index) => {
+          const projects = allProjects.filter(
+            (project) => project.category === category,
+          );
+          const label = projectCategoryLabels[category];
 
-        {/* Additional personal */}
-        <section aria-label="Additional personal work" className="mt-14">
-          <h2 className="label">
-            MORE PERSONAL WORK / {additional.length}
-          </h2>
-          <ul className="mt-4 divide-y divide-border-subtle border-t border-border-subtle">
-            {additional.map((p) => (
-              <ArchiveRow
-                key={p.slug}
-                slug={p.slug}
-                title={p.title}
-                line={p.mission ?? p.origin}
-                meta={p.origin}
-              />
-            ))}
-          </ul>
-        </section>
-
-        {/* NTI curriculum */}
-        <section aria-label="NTI curriculum projects" className="mt-14 scroll-mt-24" id="curriculum">
-          <h2 className="label text-curriculum">
-            CURRICULUM / NTI · {ntiProjects.length}
-          </h2>
-          <ul className="mt-4 divide-y divide-border-subtle border-t border-border-subtle">
-            {ntiProjects.map((p, i) => (
-              <ArchiveRow
-                key={p.slug}
-                slug={p.slug}
-                title={p.title}
-                line={p.mission ?? "NTI Flutter track training project."}
-                meta={`NTI · ${String(i + 1).padStart(2, "0")}`}
-              />
-            ))}
-          </ul>
-        </section>
+          return (
+            <section
+              key={category}
+              aria-label={label}
+              className={index === 0 ? "mt-16" : "mt-14"}
+              id={category === "NTI_PROJECTS" ? "curriculum" : undefined}
+            >
+              <h2
+                className={
+                  category === "NTI_PROJECTS"
+                    ? "label text-curriculum"
+                    : "label"
+                }
+              >
+                {label.toUpperCase()} / {projects.length}
+              </h2>
+              <ul className="mt-4 divide-y divide-border-subtle border-t border-border-subtle">
+                {projects.map((project) => (
+                  <ArchiveRow
+                    key={project.slug}
+                    slug={project.slug}
+                    title={project.title}
+                    line={project.mission ?? label}
+                    meta={project.status ?? ""}
+                    featured={project.isImportant}
+                  />
+                ))}
+              </ul>
+            </section>
+          );
+        })}
 
         <p className="mt-16">
           <Link

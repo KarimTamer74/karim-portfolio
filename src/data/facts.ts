@@ -1,11 +1,11 @@
 
-import { allProjects, featuredProjects } from "@/data/registry";
+import { featuredProjects } from "@/data/registry";
 
 export const siteFacts = {
-  engineersTrained: "100+",
-  trainingRounds: 5,
+  traineesTrained: "120+",
+  trainingRounds: 6,
   hoursPerRound: "90+",
-  mvpDeliveryDays: allProjects.some((p) => p.slug === "mothooq") ? 14 : 0,
+  mvpDeliveryDays: 14,
 } as const;
 
-export const shippedSystemsCount = featuredProjects.length;
+export const featuredProjectsCount = featuredProjects.length;

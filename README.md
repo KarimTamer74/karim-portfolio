@@ -21,7 +21,7 @@ src/
 │   │                     # teaching, about, contact
 │   ├── projects/         # Full project archive index
 │   ├── work/[slug]/      # Per-project detail pages + OG image generation
-│   └── api/contact/      # Server-side contact form proxy
+│   └── api/contact/      # Retired contact endpoint (HTTP 410)
 ├── components/
 │   ├── sections/         # One component per homepage section
 │   ├── case-study/       # Detail-page building blocks
@@ -70,5 +70,12 @@ npm start          # serve the production build
 
 ## Contact data / environment
 
-The contact form proxies Web3Forms server-side. Copy `.env.example` to
-`.env.local` and provide `WEB3FORMS_ACCESS_KEY`.
+The contact form submits directly from the browser to the Web3Forms endpoint.
+Its `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` is a public form access key, not a
+server secret. Copy `.env.example` to `.env.local` and set your Web3Forms
+access key there.
+
+For Vercel, configure `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` in the project's
+environment variables for the deployments that need it, then redeploy.
+Changes to `NEXT_PUBLIC_*` variables are included in the browser bundle at
+build time. Do not use this variable for any other secret credentials.

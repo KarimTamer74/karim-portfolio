@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { featuredProjects, getProjectHero, moreProjects, projectCounts } from "@/data/registry";
+import {
+  featuredProjects,
+  getProjectHero,
+  moreProjects,
+  projectCategoryLabels,
+  projectCounts,
+} from "@/data/registry";
 import type { Project } from "@/types";
 import { StatusStamp } from "@/components/shared/status-stamp";
 import { FactRow } from "@/components/shared/fact-row";
@@ -9,7 +15,7 @@ import { SectionHeader } from "@/components/shared/section-header";
 
 export function WorkSection({ className }: { className?: string }): React.ReactElement {
   const featured = featuredProjects.filter((p) => p.status !== "CURRICULUM");
-  const secondary = moreProjects.filter((p) => p.category === "PERSONAL");
+  const secondary = moreProjects.filter((p) => p.category !== "NTI_PROJECTS");
 
   return (
     <section id="work" aria-label="Work" className={`scroll-mt-24 ${className ?? ""}`}>
@@ -53,8 +59,8 @@ export function WorkSection({ className }: { className?: string }): React.ReactE
                 key={project.slug}
                 href={`/work/${project.slug}`}
                 title={project.title}
-                line={project.mission ? project.mission : project.origin}
-                meta={project.origin}
+                line={project.mission ?? projectCategoryLabels[project.category]}
+                meta={projectCategoryLabels[project.category]}
               />
             ))}
             <MoreRow
@@ -134,7 +140,7 @@ function PreviewText({ project, flip }: { project: Project; flip: boolean }): Re
       <div className="flex flex-wrap items-center gap-4">
         <StatusStamp status={project.status} />
         <p className="label">
-          {project.origin}
+          {projectCategoryLabels[project.category]}
         </p>
       </div>
 

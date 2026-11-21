@@ -106,10 +106,10 @@ export function HeroSection(): React.ReactElement {
               >
                 <StatusStamp status="CURRICULUM" />
                 <p className="mt-2 text-h3 text-primary transition-colors duration-150 group-hover:text-accent">
-                  100+ engineers trained
+                  120+ trainees trained
                 </p>
                 <p className="mt-1 mono-note transition-colors duration-150 group-hover:text-secondary">
-                  NTI · 5 ROUNDS · INSTRUCTOR
+                  NTI · 6 ROUNDS · INSTRUCTOR
                 </p>
               </a>
             </li>

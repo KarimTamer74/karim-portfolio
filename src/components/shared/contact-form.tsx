@@ -58,7 +58,24 @@ export function ContactForm(): React.ReactElement {
           subject: "New message from your portfolio website!",
         }),
       });
-      if (!response.ok) throw new Error(`Status ${response.status}`);
+      let result: unknown;
+      try {
+        result = await response.json();
+      } catch {
+        throw new Error("Invalid Web3Forms response");
+      }
+
+      if (
+        !response.ok ||
+        typeof result !== "object" ||
+        result === null ||
+        Array.isArray(result) ||
+        !("success" in result) ||
+        result.success !== true
+      ) {
+        throw new Error("Web3Forms submission failed");
+      }
+
       setStatus("success");
       setValues({ name: "", email: "", message: "" });
     } catch {

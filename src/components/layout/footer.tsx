@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 
 export function Footer(): React.ReactElement {
@@ -20,13 +21,13 @@ export function Footer(): React.ReactElement {
               ["ABOUT", "#about"],
               ["CONTACT", "#contact"],
             ].map(([label, href]) => (
-              <a
+              <Link
                 key={href}
-                href={href}
+                href={`/${href}`}
                 className="link mono-note w-fit hover:text-secondary"
               >
                 {label}
-              </a>
+              </Link>
             ))}
           </nav>
 

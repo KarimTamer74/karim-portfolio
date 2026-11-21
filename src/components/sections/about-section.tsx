@@ -98,7 +98,7 @@ export function AboutSection({ className }: { className?: string }): React.React
                 <p className="mt-3 text-body-lg text-secondary">
                   In October 2025, NTI hired me back to teach the track I had just
                   completed. My first round, I was nervous teaching people older than me.
-                  Five rounds and 100+ engineers later, teaching is how I keep myself
+                  Six rounds and 120+ trainees later, teaching is how I keep myself
                   honest: if I can&apos;t explain it clearly, I don&apos;t fully understand
                   it yet.
                 </p>

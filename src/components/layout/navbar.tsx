@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { navItems } from "@/constants/navigation";
 import { siteConfig } from "@/lib/site-config";
@@ -10,6 +12,7 @@ const SECTION_IDS = navItems.map((item) => item.href.slice(1));
 
 
 export function Navbar(): React.ReactElement {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const [active, setActive] = useState<string>("");
@@ -60,6 +63,8 @@ export function Navbar(): React.ReactElement {
   }, [open]);
 
   useEffect(() => {
+    if (pathname !== "/") return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -73,7 +78,7 @@ export function Navbar(): React.ReactElement {
       if (el) observer.observe(el);
     }
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
   /* Focus trap + escape + scroll lock for the mobile overlay. */
   useEffect(() => {
@@ -141,12 +146,14 @@ export function Navbar(): React.ReactElement {
         <ul className="hidden items-center gap-7 lg:flex">
           {navItems.map((item) => (
             <li key={item.href}>
-              <a
-                href={item.href}
-                aria-current={active === item.href ? "true" : undefined}
+              <Link
+                href={pathname === "/" ? item.href : `/${item.href}`}
+                aria-current={
+                  pathname === "/" && active === item.href ? "true" : undefined
+                }
                 className={cn(
                   "group relative inline-flex h-11 items-center gap-1.5 font-mono text-sm tracking-wide uppercase transition-colors",
-                  active === item.href
+                  pathname === "/" && active === item.href
                     ? "text-primary"
                     : "text-muted hover:text-secondary",
                 )}
@@ -157,10 +164,10 @@ export function Navbar(): React.ReactElement {
                   aria-hidden
                   className={cn(
                     "absolute inset-x-0 bottom-3 h-0.5 origin-left scale-x-0 bg-accent transition-transform duration-150 ease-standard group-hover:scale-x-100",
-                    active === item.href && "scale-x-100",
+                    pathname === "/" && active === item.href && "scale-x-100",
                   )}
                 />
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -229,9 +236,9 @@ export function Navbar(): React.ReactElement {
               className="flex flex-1 bg-bg/85 dark:bg-surface/85 flex-col justify-center gap-2"
             >
               {navItems.map((item, i) => (
-                <a
+                <Link
                   key={item.href}
-                  href={item.href}
+                  href={pathname === "/" ? item.href : `/${item.href}`}
                   onClick={closeMenu}
                   style={{ animationDelay: `${i * 25}ms` }}
                   className="menu-item flex min-h-14 items-baseline gap-4 border-b border-border-subtle py-4 text-h1 text-primary transition-colors hover:text-accent"
@@ -240,7 +247,7 @@ export function Navbar(): React.ReactElement {
                     {item.index}
                   </span>
                   {item.label}
-                </a>
+                </Link>
               ))}
             </nav>
 

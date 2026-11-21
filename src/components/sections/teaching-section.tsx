@@ -19,10 +19,11 @@ export function TeachingSection({ className }: { className?: string }): React.Re
           {/* Monument + copy */}
           <div className="lg:col-span-5">
             <p className="text-metric-2xl text-primary">
-              {siteFacts.engineersTrained}
+              {siteFacts.traineesTrained}
             </p>
             <p className="mt-2 label">
-              ENGINEERS TRAINED ACROSS {siteFacts.trainingRounds} ROUNDS
+              TRAINEES TRAINED ACROSS {siteFacts.trainingRounds} ROUNDS ·{" "}
+              {siteFacts.hoursPerRound} HOURS / ROUND
             </p>
             <p className="mt-6 max-w-[48ch] text-body-lg text-secondary">
               I teach developers how to turn requirements into software that can
@@ -82,9 +83,9 @@ export function TeachingSection({ className }: { className?: string }): React.Re
             <div className="mt-10 border-t border-border-subtle pt-8">
               <h3 className="label">OUTCOME</h3>
               <p className="mt-3 max-w-[58ch] text-body-lg text-secondary">
-                {siteFacts.engineersTrained} engineers have completed NTI&apos;s intensive
-                hands-on Flutter program across {siteFacts.trainingRounds} rounds, each
-                finishing with real applications built and reviewed.
+                I have trained {siteFacts.traineesTrained} trainees across{" "}
+                {siteFacts.trainingRounds} rounds of NTI&apos;s intensive hands-on Flutter
+                program. The practical track includes real applications built and reviewed.
               </p>
               <p className="mt-3 mono-note">
                 SOURCE: NTI INSTRUCTOR RECORD · CREATIVA MANSOURA

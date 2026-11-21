@@ -3,7 +3,7 @@ export const siteConfig = {
   role: "Flutter Developer",
   tagline: "I build products people use. Then teach others to build theirs.",
   aboutSummary:
-    "Flutter developer and NTI instructor: shipped products to Google Play, delivered client MVPs under deadline, and trained 100+ engineers in Cubit, REST APIs, and MVVM.",
+    "Flutter developer and NTI instructor: shipped products to Google Play, delivered client MVPs under deadline, and trained 120+ trainees across 6 rounds in Cubit, REST APIs, and MVVM.",
   email: "karimabokamel74@gmail.com",
   phone: "+20 114 877 9202",
   phoneHref: "tel:+201148779202",
