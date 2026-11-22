@@ -1,5 +1,5 @@
-import type { SystemStatus } from "@/types";
 import { cn } from "@/lib/utils";
+import type { SystemStatus } from "@/types";
 
 /* Marks are picked from the self-hosted JetBrains Mono glyph set (● ◔ ✓ ◆)
    so every status glyph renders in the mono face with identical metrics.
@@ -8,9 +8,9 @@ const STATUS_META: Partial<
   Record<SystemStatus, { word: string; mark: string; className: string }>
 > = {
   LIVE: { word: "LIVE", mark: "●", className: "text-live" },
-  BUILDING: { word: "BUILDING", mark: "◔", className: "text-building" },
-  DELIVERED: { word: "DELIVERED", mark: "✓", className: "text-delivered" },
-  CURRICULUM: { word: "CURRICULUM", mark: "◆", className: "text-curriculum" },
+  BUILDING: { word: "IN Development", mark: "◔", className: "text-building" },
+  DELIVERED: { word: "DONE", mark: "✓", className: "text-delivered" },
+  CURRICULUM: { word: "NTI TRAINING", mark: "◆", className: "text-accent" },
 };
 
 export interface StatusStampProps {

@@ -15,35 +15,37 @@ export function ContactSection({ className }: { className?: string }): React.Rea
             <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight text-primary [text-wrap:balance] md:text-4xl">
               Have a product that needs a <span className="text-gradient">builder</span>?
             </h2>
-            <p className="mt-4 text-secondary">
-              For hiring, freelance work, or a technical conversation, choose the channel
-              that fits.
+            <p className="mt-3 text-secondary">
+              For hiring, freelance work, or a technical conversation, choose the channel that fits.
             </p>
           </div>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-12">
+        <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12">
           <Reveal className="lg:col-span-5">
             <div className="space-y-8">
               {contactGroups.map((group) => (
                 <div key={group.audience}>
-                  <h3 className="font-mono text-[11px] font-bold tracking-[0.22em] text-muted">
+                  <h3 className="font-mono text-[11px] font-bold tracking-[0.22em] text-accent">
                     {group.audience}
                   </h3>
-                  <ul className="mt-3 space-y-3">
-                    {group.channels.map((channel) => (
-                      <li key={channel.id}>
+                  <ul className="mt-2">
+                    {group.channels.map((channel, i) => (
+                      <li
+                        key={channel.id}
+                        className={i > 0 ? "border-t border-border-default" : ""}
+                      >
                         <a
                           href={channel.href}
                           {...(channel.href.startsWith("http")
                             ? { target: "_blank", rel: "noopener noreferrer" }
                             : {})}
                           {...(channel.id === "resume" ? { download: true } : {})}
-                          className="group flex items-center justify-between gap-3 rounded-2xl border border-border-default bg-surface px-5 py-4 transition-colors duration-200 hover:border-accent"
+                          className="group -mx-2 flex items-center justify-between gap-3 rounded-md px-2 py-3.5 transition-colors duration-150 hover:bg-surface"
                         >
                           <span className="flex min-w-0 items-center gap-3">
                             <channel.icon className="size-4 shrink-0 text-accent" aria-hidden />
-                            <span className="font-sans font-semibold text-primary transition-colors group-hover:text-accent">
+                            <span className="font-sans text-[16px] font-semibold text-primary transition-colors group-hover:text-accent">
                               {channel.label}
                             </span>
                           </span>

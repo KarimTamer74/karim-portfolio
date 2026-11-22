@@ -17,10 +17,6 @@
   --color-status-delivered: #5b6472;
   --color-status-curriculum: #5d4fb8;
   --color-danger: #c42b22;
-  --color-accent: #f59e0b;
-  --color-accent-2: #f43f5e;
-  --color-glow-1: rgba(245, 158, 11, 0.18);
-  --color-glow-2: rgba(244, 63, 94, 0.14);
 }
 
 .dark {
@@ -38,10 +34,6 @@
   --color-status-delivered: #8b95a4;
   --color-status-curriculum: #9a8fe8;
   --color-danger: #e5534b;
-  --color-accent: #fbbf24;
-  --color-accent-2: #fb7185;
-  --color-glow-1: rgba(251, 191, 36, 0.2);
-  --color-glow-2: rgba(251, 113, 133, 0.16);
 }
 
 @theme inline {
@@ -59,9 +51,7 @@
   --color-delivered: var(--color-status-delivered);
   --color-curriculum: var(--color-status-curriculum);
   --color-danger: var(--color-danger);
-  --color-accent-2: var(--color-accent-2);
-  --color-glow-1: var(--color-glow-1);
-  --color-glow-2: var(--color-glow-2);
+
   --font-sans: var(--font-archivo), system-ui, sans-serif;
   --font-mono:
     var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo, Consolas,
@@ -446,6 +436,31 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================================
+   REDESIGN STEP 1: Sunset Amber palette + hero helpers
+   Appended after the base tokens so these values win.
+   ============================================================ */
+:root {
+  --color-accent: #d97706;
+  --color-accent-2: #f43f5e;
+  --color-glow-1: rgba(217, 119, 6, 0.16);
+  --color-glow-2: rgba(244, 63, 94, 0.14);
+}
+
+.dark {
+  --color-accent: #fbbf24;
+  --color-accent-2: #fb7185;
+  --color-glow-1: rgba(251, 191, 36, 0.2);
+  --color-glow-2: rgba(251, 113, 133, 0.16);
+}
+
+@theme inline {
+  --color-accent-2: var(--color-accent-2);
+  --color-glow-1: var(--color-glow-1);
+  --color-glow-2: var(--color-glow-2);
+}
+
 .text-gradient {
   background: linear-gradient(90deg, var(--color-accent), var(--color-accent-2));
   -webkit-background-clip: text;
@@ -470,4 +485,9 @@ body {
 
 .animate-marquee {
   animation: marquee-scroll 28s linear infinite;
+}
+
+/* Marquee polish: pause on hover */
+.marquee-track:hover {
+  animation-play-state: paused;
 }

@@ -5,13 +5,16 @@ export type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
 export type SystemStatus = "LIVE" | "BUILDING" | "DELIVERED" | "CURRICULUM" | "ARCHIVED";
 
+export type ProjectOrigin =
+  | "PERSONAL PRODUCT"
+  | "CLIENT ENGAGEMENT"
+  | "GRADUATION PROJECT"
+  | "NTI CURRICULUM";
+
+
 export type EvidenceLevel = "FLAGSHIP" | "SELECTED" | "LIMITED";
 
-export type ProjectCategory =
-  | "PERSONAL_PRODUCTS"
-  | "CLIENT_WORK"
-  | "GRADUATION_PROJECT"
-  | "NTI_PROJECTS";
+export type ProjectCategory = "PERSONAL" | "NTI";
 
 export interface Fact {
   label: string;
@@ -44,21 +47,12 @@ export interface ExternalLink {
   href: string;
 }
 
-export interface ProjectCaseStudy {
-  problem: string;
-  solution: string;
-  role: string;
-  features: readonly string[];
-  technicalDecisions: readonly Fact[];
-  testing: readonly string[];
-  release: readonly string[];
-}
-
 /** A project in the registry - flagship, selected, or limited evidence. */
 export interface Project {
   slug: string;
   title: string;
   status?: SystemStatus;
+  origin: ProjectOrigin;
   category: ProjectCategory;
   /** How much verified evidence exists; controls presentation depth. */
   evidence: EvidenceLevel;
@@ -67,7 +61,6 @@ export interface Project {
   mission?: string;
   /** Present-tense activity line — only while status is BUILDING. */
   currentPhase?: string;
-  caseStudy?: ProjectCaseStudy;
   stack: readonly string[];
   facts: readonly Fact[];
   /** Full image list; exactly one entry has isHero: true. That image is the

@@ -68,12 +68,12 @@ export function HeroSection(): React.ReactElement {
           </span>
 
           <h1 className="mt-6 font-sans text-5xl font-extrabold tracking-tight text-primary md:text-7xl">
-            Karim <span className="text-gradient">Tamer</span>
+            Karim <span className="text-gradient">Abo Kamel</span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-secondary lg:mx-0">
             I build mobile apps people use, and teach others to build theirs. Apps
-            live on Google Play, and 100+ engineers trained at NTI so far.
+            live on Google Play, and 120+ engineers trained at NTI so far.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5 lg:justify-start">
@@ -127,7 +127,7 @@ export function HeroSection(): React.ReactElement {
             >
               <Image
                 src="/images/me-graduation.jpg"
-                alt="Karim Tamer"
+                alt="Karim Abo Kamel"
                 width={360}
                 height={440}
                 priority

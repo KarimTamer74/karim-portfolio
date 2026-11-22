@@ -18,19 +18,20 @@ export function SkillsSection({ className }: { className?: string }): React.Reac
           </p>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 space-y-7">
           {skillGroups.map((group, i) => (
-            <Reveal key={group.label} delay={i * 0.06}>
-              <div className="h-full rounded-2xl border border-border-default bg-surface p-6 transition-colors duration-200 hover:border-accent">
+            <Reveal key={group.label} delay={i * 0.05}>
+              <div>
                 <p className="font-mono text-[11px] font-bold tracking-[0.22em] text-accent">
                   {group.label}
                 </p>
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="mt-2.5 flex flex-wrap items-baseline gap-x-5 gap-y-2.5">
                   {group.items.map((item) => (
                     <span
                       key={item}
-                      className="rounded-full border border-border-default bg-bg px-3 py-1 font-mono text-[11px] font-semibold tracking-wide text-secondary"
+                      className="inline-flex items-center gap-2 font-sans text-[15px] font-semibold text-primary"
                     >
+                      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-muted" />
                       {item}
                     </span>
                   ))}

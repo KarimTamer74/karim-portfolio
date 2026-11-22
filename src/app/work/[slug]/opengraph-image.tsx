@@ -64,7 +64,7 @@ export default async function OpengraphImage({
             {title}
           </div>
           <div style={{ marginTop: 20, fontSize: 28, color: "#667081", display: "flex" }}>
-            OPERATIONS BRIEFING / KARIM TAMER · FLUTTER DEVELOPER
+            OPERATIONS BRIEFING / KARIM ABO KAMEL · FLUTTER DEVELOPER
           </div>
         </div>
 

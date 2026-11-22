@@ -1,5 +1,5 @@
-import type { CurriculumApp, MediaItem, Project } from "@/types";
 import { siteConfig } from "@/lib/site-config";
+import type { CurriculumApp, MediaItem, Project } from "@/types";
 
 const personalProjects: readonly Project[] = [
   {
@@ -13,11 +13,10 @@ const personalProjects: readonly Project[] = [
       "A productivity app that turns tasks and job applications into deliberate, tracked work, live on Google Play.",
     stack: ["FLUTTER", "DART", "MVVM", "CUBIT", "SQFLITE"],
     facts: [
-      { label: "CHANNEL", value: "GOOGLE PLAY" },
-      { label: "USERS", value: "LIVE" },
-      { label: "MONITORING", value: "SENTRY" },
-      { label: "UPDATES", value: "SHOREBIRD OTA" },
-      { label: "OFFLINE", value: "FIRST" },
+      { label: "AVAILABLE ON", value: "GOOGLE PLAY" },
+      { label: "WORKS", value: "OFFLINE" },
+      { label: "UPDATES", value: "OVER THE AIR" },
+      { label: "CRASH TRACKING", value: "SENTRY" },
     ],
     media: [
       {
@@ -103,30 +102,30 @@ const personalProjects: readonly Project[] = [
       },
     ],
     constraints: [
-      { label: "PLATFORM", value: "ANDROID (GOOGLE PLAY)" },
-      { label: "ARCHITECTURE", value: "MVVM + CUBIT" },
-      { label: "CONNECTIVITY", value: "OFFLINE REQUIRED" },
-      { label: "MONITORING", value: "SENTRY" },
-      { label: "DELIVERY", value: "OTA VIA SHOREBIRD" },
+      { label: "PLATFORM", value: "ANDROID, ON GOOGLE PLAY" },
+      { label: "STRUCTURE", value: "MVVM + CUBIT" },
+      { label: "INTERNET", value: "WORKS FULLY OFFLINE" },
+      { label: "CRASH REPORTING", value: "SENTRY" },
+      { label: "UPDATES", value: "OVER THE AIR" },
     ],
     decisions: [
       {
-        title: "Offline-first storage",
-        body: "Every feature works against a local SQLite database. The network is an enhancement, never a dependency.",
+        title: "Works without internet",
+        body: "Everything the app does runs on the phone's own storage. Internet is a bonus, never a requirement.",
         because:
-          "A productivity tool that stops working when connectivity drops fails at exactly the moment it should be most useful. Sqflite keeps tasks, applications, and reminders usable anywhere.",
+          "A productivity app that stops working when the connection drops fails exactly when you need it most.",
       },
       {
-        title: "Production reliability loop",
-        body: "Sentry watches for crashes, Shorebird ships code fixes over-the-air, OneSignal carries scheduled reminders, all wired before launch, not after the first incident.",
+        title: "Reliable after launch",
+        body: "Crashes are reported automatically, fixes ship straight to users without waiting for store review, and reminders are built in, all set up before launch, not after the first problem.",
         because:
-          "Shipping to a public store means owning the app after release. Instrumenting first turns user-facing failures into fixable events instead of silent churn.",
+          "Publishing on Google Play means owning the app after release. Catching problems early turns crashes into quick fixes instead of silent uninstalls.",
       },
       {
-        title: "Dual-track model",
-        body: "Tasks and job applications share one system: statuses, follow-ups, and focus sessions cover both hunting for work and doing it.",
+        title: "Tasks and job hunting in one place",
+        body: "Tasks and job applications share one system: statuses, follow-ups, and focus sessions cover both finding work and doing it.",
         because:
-          "The app was designed around how job seekers actually operate, tracking applications with the same discipline as daily work instead of forcing two separate tools.",
+          "The app was designed around how job seekers actually work, tracking applications with the same discipline as daily tasks instead of two separate tools.",
       },
     ],
     deployment: {
@@ -147,9 +146,9 @@ const personalProjects: readonly Project[] = [
     currentState: {
       stampNote: "Live on Google Play with active users.",
       details: [
-        { label: "STATUS", value: "PUBLISHED · GOOGLE PLAY" },
-        { label: "MONITORING", value: "SENTRY ACTIVE" },
-        { label: "UPDATE CHANNEL", value: "SHOREBIRD OTA" },
+        { label: "STATUS", value: "PUBLISHED ON GOOGLE PLAY" },
+        { label: "CRASH REPORTING", value: "ACTIVE" },
+        { label: "UPDATES", value: "OVER THE AIR" },
       ],
       lastReviewed: "2026-08",
     },
@@ -172,11 +171,10 @@ const personalProjects: readonly Project[] = [
     currentPhase: "BOOKING & INSTAPAY RECEIPT FLOW",
     stack: ["FLUTTER", "CLEAN ARCHITECTURE", "CUBIT", "DIO"],
     facts: [
-      { label: "ARCHITECTURE", value: "CLEAN" },
-      { label: "STATE", value: "CUBIT" },
-      { label: "NETWORK", value: "DIO" },
-      { label: "UPDATES", value: "SHOREBIRD OTA" },
-      { label: "THEMING", value: "LIGHT / DARK" },
+      { label: "BOOKING", value: "4 EASY STEPS" },
+      { label: "PAYMENTS", value: "INSTAPAY + WALLET" },
+      { label: "THEMES", value: "LIGHT + DARK" },
+      { label: "UPDATES", value: "OVER THE AIR" },
     ],
     media: [
       {
@@ -316,30 +314,30 @@ const personalProjects: readonly Project[] = [
       },
     ],
     constraints: [
-      { label: "ARCHITECTURE", value: "CLEAN ARCHITECTURE" },
-      { label: "PAYMENTS", value: "INSTAPAY / WALLET + RECEIPT UPLOAD" },
-      { label: "STATE DEPTH", value: "4-STEP BOOKING FLOW" },
-      { label: "SECURITY", value: "SECURE TOKEN STORAGE" },
-      { label: "DELIVERY", value: "OTA VIA SHOREBIRD" },
+      { label: "STRUCTURE", value: "CLEAN ARCHITECTURE" },
+      { label: "PAYMENTS", value: "INSTAPAY + WALLET, WITH RECEIPT UPLOAD" },
+      { label: "BOOKING", value: "4 GUIDED STEPS" },
+      { label: "SECURITY", value: "SIGN-IN DATA STORED SECURELY" },
+      { label: "UPDATES", value: "OVER THE AIR" },
     ],
     decisions: [
       {
-        title: "Clean Architecture from day one",
-        body: "Domain, data, and presentation layers are separated behind repository interfaces; Cubit drives each booking step independently.",
+        title: "Clean structure from day one",
+        body: "The code is split into separate layers, so each booking step can change without breaking the others.",
         because:
-          "Booking flows mutate constantly: payment providers change, rules get added. Layer isolation means those changes stay inside one layer instead of rippling through the app.",
+          "Booking rules change constantly: payment providers change, requirements get added. Separation keeps those changes contained instead of rippling through the app.",
       },
       {
-        title: "Centralised API error handling",
-        body: "A single Dio interceptor maps network, auth, and server failures into typed outcomes the UI can present consistently.",
+        title: "One clear way to handle errors",
+        body: "Every network or server problem is turned into a clear message the app can show, instead of failing silently or confusing the guest.",
         because:
-          "Four sequential steps multiply failure points. One translation layer keeps every step's error state predictable instead of five ad-hoc implementations.",
+          "Four booking steps means four places things can go wrong. One shared approach keeps every error message predictable.",
       },
       {
-        title: "Receipt-based local payments",
-        body: "The payment step supports InstaPay and wallet transfers with an in-app receipt upload feeding the reservation's status track.",
+        title: "Payments the way people actually pay",
+        body: "Guests pay by InstaPay or wallet transfer and upload the receipt right in the app; the reservation status updates from there.",
         because:
-          "Local rental markets run on manual transfer rails. Meeting users on InstaPay, with proof attached, removes the trust gap a card-only flow would create.",
+          "Local rental markets run on manual transfers. Meeting users on InstaPay, with proof attached, removes the trust gap a card-only flow would create.",
       },
     ],
     deployment: {
@@ -353,9 +351,9 @@ const personalProjects: readonly Project[] = [
     currentState: {
       stampNote: "In development: booking and payment flow shipping now.",
       details: [
-        { label: "CURRENT PHASE", value: "BOOKING & INSTAPAY RECEIPT FLOW" },
-        { label: "ARCHITECTURE", value: "STABLE ACROSS FEATURES" },
-        { label: "NEXT", value: "RESERVATION STATUS TRACKING POLISH" },
+        { label: "CURRENT PHASE", value: "BOOKING + PAYMENT FLOW" },
+        { label: "CODEBASE", value: "STABLE ACROSS FEATURES" },
+        { label: "NEXT", value: "POLISHING RESERVATION TRACKING" },
       ],
       lastReviewed: "2026-08",
     },
@@ -366,7 +364,7 @@ const personalProjects: readonly Project[] = [
   {
     slug: "quran-cuts",
     title: "Quran Cuts",
-    status: "DELIVERED",
+    status: "BUILDING",
     origin: "PERSONAL PRODUCT",
     category: "PERSONAL",
     evidence: "FLAGSHIP",
@@ -374,10 +372,10 @@ const personalProjects: readonly Project[] = [
       "An on-device generator that turns Quran verses into shareable vertical video clips: text, recitation, and template composed entirely on the phone.",
     stack: ["FLUTTER", "FFMPEG", "HIVE", "GETIT"],
     facts: [
-      { label: "ENGINE", value: "FFMPEG" },
-      { label: "PROCESSING", value: "ON-DEVICE" },
-      { label: "OUTPUT", value: "9:16 MP4 · 720P" },
-      { label: "FLOW", value: "7 STEPS" },
+      { label: "BUILT WITH", value: "FFMPEG" },
+      { label: "WORKS", value: "ON-DEVICE" },
+      { label: "OUTPUT", value: "VERTICAL VIDEO (MP4)" },
+      { label: "CREATION", value: "7 GUIDED STEPS" },
       { label: "STORAGE", value: "HIVE" },
     ],
     media: [
@@ -464,30 +462,30 @@ const personalProjects: readonly Project[] = [
       },
     ],
     constraints: [
-      { label: "PROCESSING", value: "ON-DEVICE ONLY" },
-      { label: "TEXT", value: "ARABIC AYAH WRAPPING" },
-      { label: "AUDIO", value: "RECITER SELECTION PER CLIP" },
-      { label: "OUTPUT", value: "720P VERTICAL MP4" },
+      { label: "PROCESSING", value: "ENTIRELY ON THE PHONE" },
+      { label: "TEXT", value: "ARABIC VERSE LAYOUT" },
+      { label: "AUDIO", value: "CHOOSE THE RECITER PER CLIP" },
+      { label: "OUTPUT", value: "HD VERTICAL VIDEO" },
       { label: "CREATION FLOW", value: "7 GUIDED STEPS" },
     ],
     decisions: [
       {
-        title: "On-device rendering",
-        body: "FFmpeg composes ayah text, reciter audio, and the chosen template into the final MP4 locally. No server touches the content.",
+        title: "Everything happens on the phone",
+        body: "The video is put together entirely on the device: verse text, recitation, and the chosen template. Nothing is uploaded to a server.",
         because:
-          "Religious content carries a privacy expectation cloud services routinely break. Local processing also means generation works offline and costs nothing per render.",
+          "Religious content carries a privacy expectation. Local processing also means creation works offline and costs nothing per video.",
       },
       {
-        title: "Arabic-first typography pipeline",
-        body: "Verse wrapping and glyph shaping were tuned specifically for Arabic text over templated backgrounds at export resolution.",
+        title: "Arabic text done right",
+        body: "Verse wrapping and letter shaping were tuned specifically for Arabic, so every verse reads correctly in the final video.",
         because:
-          "Default text layout breaks Arabic line boundaries, producing clipped or awkwardly joined verses. Correct rendering is the difference between usable output and unreadable output.",
+          "Standard text layout breaks Arabic line boundaries, producing clipped or awkwardly joined verses. Correct rendering is the difference between a usable clip and an unreadable one.",
       },
       {
         title: "Guided seven-step creation",
-        body: "Surah → ayah range → reciter → template → preview → export, with MVVM + Cubit isolating each step and GetIt wiring dependencies.",
+        body: "Surah, verse range, reciter, template, preview, export: a linear guided flow, with each step kept separate and easy to maintain.",
         because:
-          "Media generation has many degrees of freedom. A linear guided flow keeps the tool approachable while the architecture keeps each step independently testable.",
+          "Video creation has many options. A guided step-by-step flow keeps the tool approachable for everyone.",
       },
     ],
     deployment: {
@@ -504,7 +502,7 @@ const personalProjects: readonly Project[] = [
       stampNote: "Feature-complete build delivered April 2026.",
       details: [
         { label: "BUILD", value: "COMPLETE" },
-        { label: "PIPELINE", value: "TEXT + AUDIO + TEMPLATE → 9:16 MP4" },
+        { label: "PIPELINE", value: "TEXT + AUDIO + TEMPLATE → VERTICAL VIDEO" },
       ],
       lastReviewed: "2026-08",
     },
@@ -518,17 +516,17 @@ const personalProjects: readonly Project[] = [
     slug: "mothooq",
     title: "Mothooq",
     status: "DELIVERED",
-    origin: "CLIENT ENGAGEMENT",
+    origin: "PERSONAL PRODUCT",
     category: "PERSONAL",
     evidence: "FLAGSHIP",
     mission:
-      "A used-car marketplace where every listing follows a mandatory inspection at a partner service center. Built as a client engagement and shipped as an MVP in two weeks.",
+      "A used-car marketplace where every listing follows a mandatory inspection at a partner service center before it goes live.",
     stack: ["FLUTTER", "FIREBASE AUTH", "REALTIME DATABASE", "BLOC"],
     facts: [
-      { label: "TIMELINE", value: "14 DAYS TO MVP" },
-      { label: "CLIENT", value: "MARKETPLACE" },
-      { label: "AUTH", value: "GOOGLE / FACEBOOK SIGN-IN" },
-      { label: "DATABASE", value: "FIREBASE REALTIME DB" },
+      { label: "TIMELINE", value: "2 WEEKS" },
+      { label: "TYPE", value: "CAR MARKETPLACE" },
+      { label: "SIGN-IN", value: "GOOGLE / FACEBOOK" },
+      { label: "DATABASE", value: "FIREBASE (LIVE SYNC)" },
       { label: "ROLES", value: "USER / SERVICE CENTER" },
     ],
     media: [
@@ -597,36 +595,36 @@ const personalProjects: readonly Project[] = [
       },
     ],
     constraints: [
-      { label: "DEADLINE", value: "2 WEEKS TO MVP" },
+      { label: "TIMELINE", value: "2 WEEKS" },
       { label: "ROLES", value: "BUYERS + PARTNER SERVICE CENTERS" },
-      { label: "LISTING RULE", value: "MANDATORY INSPECTION FIRST" },
+      { label: "LISTING RULE", value: "INSPECTION REQUIRED FIRST" },
       { label: "SIGN-IN", value: "GOOGLE + FACEBOOK" },
-      { label: "BACKEND", value: "FIREBASE REALTIME DB" },
+      { label: "BACKEND", value: "FIREBASE (LIVE SYNC)" },
     ],
     decisions: [
       {
         title: "Role-based access as a core rule",
-        body: "Buyers browse and buy; service centers inspect and clear vehicles. Permissions are enforced by role, not by interface hints.",
+        body: "Buyers browse and buy; service centers inspect and clear cars. Permissions are enforced by role, not by interface hints.",
         because:
-          "The marketplace's entire promise is inspection-backed listings. Making the service center a first-class role, not an admin afterthought, which is what makes that promise enforceable.",
+          "The marketplace's whole promise is inspected cars. Making the service center a real role, not an admin afterthought, is what keeps that promise.",
       },
       {
-        title: "Firebase Realtime Database",
-        body: "Listings, appointments, and status changes sync through Firebase's realtime layer rather than a custom backend.",
+        title: "Live data with Firebase",
+        body: "Listings, appointments, and status changes update live through Firebase instead of a custom-built server.",
         because:
-          "A two-week MVP cannot carry backend construction. Realtime sync matched the domain of auction-style listing states and let all engineering time go to the experience.",
+          "A two-week timeline leaves no room to build a server. Live sync matched the listing states and let all the time go into the experience.",
       },
       {
-        title: "BLoC under deadline pressure",
-        body: "State management was structured with BLoc from the first commit despite the compressed timeline.",
+        title: "Clean structure under deadline pressure",
+        body: "The app's state management was structured properly from the first commit, despite the two-week timeline.",
         because:
-          "Deadline pressure is when architecture usually dies. Keeping BLoC discipline meant the post-MVP update phase could build on the codebase instead of rewriting it.",
+          "Deadline pressure is when code structure usually dies. Keeping it clean meant the update phase could build on the app instead of rewriting it.",
       },
     ],
     deployment: {
       facts: [
         { label: "DELIVERED", value: "MARCH 2025" },
-        { label: "SCOPE", value: "MVP + UPDATE PLAN" },
+        { label: "SCOPE", value: "FULL MARKETPLACE FLOW" },
         { label: "AUTH PROVIDERS", value: "GOOGLE · FACEBOOK" },
       ],
       links: [
@@ -638,10 +636,10 @@ const personalProjects: readonly Project[] = [
     },
     currentState: {
       stampNote:
-        "Delivered to the client March 2025 with a planned update phase.",
+        "Completed March 2025 with a planned update phase.",
       details: [
-        { label: "HANDOFF", value: "COMPLETE" },
-        { label: "ENGAGEMENT TYPE", value: "PAID FREELANCE MVP" },
+        { label: "DELIVERY", value: "COMPLETE" },
+        { label: "PLATFORM", value: "ANDROID" },
       ],
       lastReviewed: "2026-08",
     },
@@ -665,9 +663,9 @@ const personalProjects: readonly Project[] = [
       "A real-time auction platform with live bidding, dynamic price updates, seller-side product management, and an integrated payment flow.",
     stack: ["FLUTTER", "CLEAN ARCHITECTURE", "REST API", "FCM"],
     facts: [
-      { label: "BIDDING", value: "REAL-TIME" },
-      { label: "PAYMENTS", value: "INTEGRATED" },
-      { label: "ALERTS", value: "FCM" },
+      { label: "BIDDING", value: "LIVE" },
+      { label: "PAYMENTS", value: "BUILT IN" },
+      { label: "ALERTS", value: "PUSH" },
       { label: "PERIOD", value: "DEC 2024 - JUL 2025" },
     ],
     media: [
@@ -753,7 +751,9 @@ const personalProjects: readonly Project[] = [
         isHero: false,
       },
     ],
-    links: [],
+    links: [
+      { label: "SOURCE ↗", href: "https://drive.google.com/drive/folders/1kbLdD2cy-TKpTsR25eVtWxRx6TMUop2M?usp=drive_link" },
+    ],
     isImportant: true,
     priority: 4,
   },
@@ -768,8 +768,8 @@ const personalProjects: readonly Project[] = [
     stack: ["FLUTTER", "GEMINI AI", "FIREBASE AUTH", "BLOC"],
     facts: [
       { label: "LANGUAGES", value: "AR / EN" },
-      { label: "AI ENGINE", value: "GEMINI" },
-      { label: "AUTH", value: "FIREBASE" },
+      { label: "AI", value: "GEMINI" },
+      { label: "SIGN-IN", value: "FIREBASE" },
     ],
     media: [
       {
@@ -800,7 +800,7 @@ const personalProjects: readonly Project[] = [
         isHero: false,
       },
     ],
-    links: [{ label: "SOURCE ↗", href: `${siteConfig.githubUrl}/chatbot-app` }],
+    links: [{ label: "SOURCE ↗", href: `${siteConfig.githubUrl}/chatbot-app/tree/master` }],
     isImportant: false,
     priority: 6,
   },
@@ -836,7 +836,7 @@ const personalProjects: readonly Project[] = [
     category: "PERSONAL",
     evidence: "LIMITED",
     stack: [],
-    facts: [{ label: "DOCUMENTATION", value: "PENDING" }],
+    facts: [{ label: "DETAILS", value: "COMING SOON" }],
     media: [
       {
         src: "/images/work/playzone/playzone.webp",
@@ -848,7 +848,7 @@ const personalProjects: readonly Project[] = [
         isHero: true,
       },
     ],
-    links: [],
+    links: [{ label: "SOURCE ↗", href: `${siteConfig.githubUrl}/play_zone` }],
     isImportant: false,
     priority: 8,
   },
@@ -933,6 +933,12 @@ const ntiMedia: Readonly<Record<CurriculumApp["slug"], Project["media"]>> = {
 };
 
 /** The six NTI curriculum projects, in teaching order. */
+const ntiLinks: Record<string, readonly { label: string; href: string }[]> = {
+  "nti-bmi": [{ label: "SOURCE ↗", href: `${siteConfig.githubUrl}/r3_bmi_app` }],
+  "nti-ecommerce": [{ label: "SOURCE ↗", href: `${siteConfig.githubUrl}/e-commerce-r2` }],
+  "nti-yummy": [{ label: "SOURCE ↗", href: `${siteConfig.githubUrl}/yummy_app` }],
+};
+
 export const ntiProjects: readonly Project[] = curriculumApps.map(
   (app, i): Project => ({
     slug: app.slug,
@@ -946,7 +952,7 @@ export const ntiProjects: readonly Project[] = curriculumApps.map(
     stack: ["FLUTTER", "DART"],
     facts: [{ label: "PROGRAM", value: "NTI FLUTTER TRACK" }],
     media: ntiMedia[app.slug],
-    links: [],
+    links: ntiLinks[app.slug] ?? [],
     isImportant: false,
     priority: 9 + i,
   }),

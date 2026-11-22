@@ -10,8 +10,8 @@ export const jobs: readonly Job[] = [
     summary:
       "Hired back by the institute that trained me to run its hands-on Flutter program.",
     facts: [
-      { label: "TRAINEES", value: "100+" },
-      { label: "ROUNDS", value: "5" },
+      { label: "TRAINEES", value: "120+" },
+      { label: "ROUNDS", value: "6" },
       { label: "HOURS / ROUND", value: "90+" },
     ],
     points: [

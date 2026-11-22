@@ -46,7 +46,7 @@ export function Navbar(): React.ReactElement {
     <header className="sticky top-0 z-50 border-b border-border-subtle bg-bg/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <a href="#top" className="font-sans text-lg font-bold tracking-tight text-primary">
-          Karim<span className="text-gradient">.Tamer</span>
+          Karim<span className="text-gradient">.Abo Kamel</span>
         </a>
 
         <div className="hidden items-center gap-7 md:flex">

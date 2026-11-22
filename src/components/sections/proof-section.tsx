@@ -1,11 +1,11 @@
-import { featuredProjectsCount, siteFacts } from "@/data/facts";
+import { shippedSystemsCount, siteFacts } from "@/data/facts";
 
 
 export function ProofSection({ className }: { className?: string }): React.ReactElement {
   const proofs = [
     {
-      value: siteFacts.traineesTrained,
-      label: "TRAINEES TRAINED AT NTI",
+      value: siteFacts.engineersTrained,
+      label: "ENGINEERS TRAINED AT NTI",
       href: "#teaching",
     },
     {
@@ -14,8 +14,8 @@ export function ProofSection({ className }: { className?: string }): React.React
       href: "#work",
     },
     {
-      value: String(featuredProjectsCount),
-      label: "FEATURED PROJECTS",
+      value: String(shippedSystemsCount),
+      label: "SHIPPED SYSTEMS IN THE REGISTRY",
       href: "#work",
     },
   ] as const;
