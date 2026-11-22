@@ -45,7 +45,7 @@ export function Navbar(): React.ReactElement {
   return (
     <header className="sticky top-0 z-50 border-b border-border-subtle bg-bg/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <a href="#top" className="font-sans text-lg font-bold tracking-tight text-primary">
+        <a href="/#top" className="font-sans text-lg font-bold tracking-tight text-primary">
           Karim<span className="text-gradient">.Abo Kamel</span>
         </a>
 
@@ -55,7 +55,7 @@ export function Navbar(): React.ReactElement {
             return (
               <a
                 key={item.href}
-                href={item.href}
+                href={`/${item.href}`}
                 className={`relative py-1 text-sm font-medium transition-colors ${
                   isActive ? "text-accent" : "text-muted hover:text-primary"
                 }`}
@@ -111,7 +111,7 @@ export function Navbar(): React.ReactElement {
               return (
                 <a
                   key={item.href}
-                  href={item.href}
+                  href={`/${item.href}`}
                   onClick={() => setOpen(false)}
                   className={`rounded-lg px-3 py-3 text-base font-medium transition-colors ${
                     isActive ? "bg-surface text-accent" : "text-primary hover:bg-surface"

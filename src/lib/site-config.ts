@@ -12,7 +12,7 @@ export const siteConfig = {
   linkedInUrl: "https://www.linkedin.com/in/karim-tamer74/",
   resumeUrl: "/files/karim-abo-kamel-resume.pdf",
   profileImage: "/images/me-graduation.jpg",
-  url: "https://karimtamer.dev",
+  url: "https://karimabokamel.vercel.app",
   keywords: [
     "Karim Abo Kamel",
     "Flutter Developer",

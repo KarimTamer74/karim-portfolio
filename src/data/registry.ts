@@ -1,5 +1,5 @@
-import { siteConfig } from "@/lib/site-config";
 import type { CurriculumApp, MediaItem, Project } from "@/types";
+import { siteConfig } from "@/lib/site-config";
 
 const personalProjects: readonly Project[] = [
   {
@@ -136,12 +136,7 @@ const personalProjects: readonly Project[] = [
         { label: "CODE UPDATES", value: "SHOREBIRD OTA" },
         { label: "PUSH + REMINDERS", value: "ONESIGNAL + LOCAL NOTIFICATIONS" },
       ],
-      links: [
-        {
-          label: "SOURCE ↗",
-          href: `${siteConfig.githubUrl}/Taskify-App`,
-        },
-      ],
+      links: [],
     },
     currentState: {
       stampNote: "Live on Google Play with active users.",
@@ -156,7 +151,6 @@ const personalProjects: readonly Project[] = [
     priority: 1,
     links: [
       { label: "GOOGLE PLAY ↗", href: "https://play.google.com/store/apps/details?id=com.karim.jobtasker" },
-      { label: "SOURCE ↗", href: `${siteConfig.githubUrl}/Taskify-App` },
     ],
   },
   {
@@ -364,7 +358,7 @@ const personalProjects: readonly Project[] = [
   {
     slug: "quran-cuts",
     title: "Quran Cuts",
-    status: "BUILDING",
+    status: "DELIVERED",
     origin: "PERSONAL PRODUCT",
     category: "PERSONAL",
     evidence: "FLAGSHIP",
@@ -495,7 +489,7 @@ const personalProjects: readonly Project[] = [
         { label: "OUTPUT TARGET", value: "SHARE SHEET / GALLERY" },
       ],
       links: [
-        { label: "SOURCE ↗", href: `${siteConfig.githubUrl}/Quran-Cuts-App` },
+        { label: "SOURCE ↗", href: `${siteConfig.githubUrl}/quran-cuts-readme` },
       ],
     },
     currentState: {
@@ -509,7 +503,7 @@ const personalProjects: readonly Project[] = [
     isImportant: true,
     priority: 3,
     links: [
-      { label: "SOURCE ↗", href: `${siteConfig.githubUrl}/Quran-Cuts-App` },
+      { label: "SOURCE ↗", href: `${siteConfig.githubUrl}/quran-cuts-readme` },
     ],
   },
   {
@@ -800,7 +794,7 @@ const personalProjects: readonly Project[] = [
         isHero: false,
       },
     ],
-    links: [{ label: "SOURCE ↗", href: `${siteConfig.githubUrl}/chatbot-app/tree/master` }],
+    links: [{ label: "SOURCE ↗", href: `${siteConfig.githubUrl}/chatbot-app` }],
     isImportant: false,
     priority: 6,
   },
