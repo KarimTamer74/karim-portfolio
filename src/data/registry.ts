@@ -358,7 +358,7 @@ const personalProjects: readonly Project[] = [
   {
     slug: "quran-cuts",
     title: "Quran Cuts",
-    status: "DELIVERED",
+    status: "BUILDING",
     origin: "PERSONAL PRODUCT",
     category: "PERSONAL",
     evidence: "FLAGSHIP",
